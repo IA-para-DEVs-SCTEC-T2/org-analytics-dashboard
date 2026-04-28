@@ -13,39 +13,107 @@
         }
 
         :root {
-            --primary: #2563eb;
-            --secondary: #7c3aed;
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --dark: #1f2937;
-            --light: #f9fafb;
-            --border: #e5e7eb;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #818cf8;
+            --secondary: #a78bfa;
+            --accent: #f472b6;
+            --success: #34d399;
+            --warning: #fbbf24;
+            --danger: #f87171;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --shadow: rgba(0, 0, 0, 0.3);
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            color: var(--dark);
-            background: var(--light);
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px var(--shadow);
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
             color: white;
             padding: 3rem 2rem;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .header p {
             font-size: 1.1rem;
-            opacity: 0.9;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
         }
 
         .container {
@@ -62,47 +130,72 @@
         }
 
         .stat-card {
-            background: white;
+            background: var(--bg-card);
             padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-left: 4px solid var(--primary);
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
         }
 
         .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 24px var(--shadow);
+            border-color: var(--primary);
         }
 
         .stat-card h3 {
-            font-size: 0.9rem;
-            color: #6b7280;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
         }
 
         .stat-card .value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary);
+            font-size: 2.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .section {
-            background: white;
+            background: var(--bg-card);
             padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid var(--border);
             margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: 0 8px 20px var(--shadow);
         }
 
         .section h2 {
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
-            color: var(--dark);
-            border-bottom: 3px solid var(--primary);
-            padding-bottom: 0.5rem;
+            color: var(--text-primary);
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, var(--primary), var(--accent)) 1;
+            padding-bottom: 0.75rem;
+            font-weight: 700;
         }
 
         .chart-container {
@@ -113,16 +206,33 @@
 
         .quality-badge {
             display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.2s ease;
         }
 
-        .quality-alta { background: #d1fae5; color: #065f46; }
-        .quality-media { background: #fef3c7; color: #92400e; }
-        .quality-baixa { background: #fee2e2; color: #991b1b; }
+        .quality-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .quality-alta { 
+            background: linear-gradient(135deg, #10b981, #34d399); 
+            color: white;
+        }
+        .quality-media { 
+            background: linear-gradient(135deg, #f59e0b, #fbbf24); 
+            color: white;
+        }
+        .quality-baixa { 
+            background: linear-gradient(135deg, #ef4444, #f87171); 
+            color: white;
+        }
 
         .repo-grid {
             display: grid;
@@ -130,21 +240,27 @@
         }
 
         .repo-card {
-            background: var(--light);
+            background: var(--bg-secondary);
             padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .repo-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 8px 20px var(--shadow);
+            transform: translateY(-4px);
+            background: var(--bg-card);
         }
 
         .repo-card h3 {
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .repo-card .meta {
@@ -153,7 +269,7 @@
             flex-wrap: wrap;
             margin-top: 1rem;
             font-size: 0.9rem;
-            color: #6b7280;
+            color: var(--text-secondary);
         }
 
         .recommendation-list {
@@ -191,18 +307,31 @@
             background: none;
             font-size: 1rem;
             font-weight: 600;
-            color: #6b7280;
+            color: var(--text-secondary);
             border-bottom: 3px solid transparent;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .tab:hover {
             color: var(--primary);
+            background: var(--bg-secondary);
         }
 
         .tab.active {
             color: var(--primary);
             border-bottom-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
 
         .tab-content {
@@ -236,6 +365,10 @@
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+        <span id="theme-icon">🌙</span>
+    </button>
+    
     <div class="header">
         <h1>📊 Relatório da Organização</h1>
         <p>IA-para-DEVs-SCTEC-T2 • GitHub Analytics Dashboard</p>
@@ -473,6 +606,40 @@
     </div>
 
     <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const icon = document.getElementById('theme-icon');
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            
+            // Update charts for theme
+            updateChartsTheme(newTheme);
+        }
+
+        // Load saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const icon = document.getElementById('theme-icon');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        function updateChartsTheme(theme) {
+            const textColor = theme === 'dark' ? '#f1f5f9' : '#0f172a';
+            const gridColor = theme === 'dark' ? '#334155' : '#e2e8f0';
+            
+            Chart.defaults.color = textColor;
+            Chart.defaults.borderColor = gridColor;
+            
+            // Recreate charts with new theme
+            location.reload();
+        }
+
         // Tab switching
         function showTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
@@ -491,18 +658,39 @@
                 datasets: [{
                     label: 'Commits',
                     data: [71, 18, 7, 4, 1, 1],
-                    backgroundColor: 'rgba(37, 99, 235, 0.8)'
+                    backgroundColor: 'rgba(99, 102, 241, 0.8)',
+                    borderColor: 'rgba(99, 102, 241, 1)',
+                    borderWidth: 2,
+                    borderRadius: 8
                 }, {
                     label: 'Pull Requests',
                     data: [52, 8, 0, 0, 0, 0],
-                    backgroundColor: 'rgba(124, 58, 237, 0.8)'
+                    backgroundColor: 'rgba(236, 72, 153, 0.8)',
+                    borderColor: 'rgba(236, 72, 153, 1)',
+                    borderWidth: 2,
+                    borderRadius: 8
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'top' }
+                    legend: { 
+                        position: 'top',
+                        labels: {
+                            padding: 15,
+                            font: { size: 13, weight: 'bold' }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0,0,0,0.05)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
                 }
             }
         });
@@ -516,17 +704,25 @@
                 datasets: [{
                     data: [6, 1, 4],
                     backgroundColor: [
-                        'rgba(37, 99, 235, 0.8)',
-                        'rgba(124, 58, 237, 0.8)',
-                        'rgba(156, 163, 175, 0.8)'
-                    ]
+                        'rgba(99, 102, 241, 0.9)',
+                        'rgba(139, 92, 246, 0.9)',
+                        'rgba(236, 72, 153, 0.9)'
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#fff'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' }
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: { size: 13, weight: 'bold' }
+                        }
+                    }
                 }
             }
         });
@@ -540,16 +736,24 @@
                 datasets: [{
                     data: [28, 61],
                     backgroundColor: [
-                        'rgba(16, 185, 129, 0.8)',
-                        'rgba(239, 68, 68, 0.8)'
-                    ]
+                        'rgba(16, 185, 129, 0.9)',
+                        'rgba(239, 68, 68, 0.9)'
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#fff'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' }
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: { size: 13, weight: 'bold' }
+                        }
+                    }
                 }
             }
         });
@@ -563,16 +767,24 @@
                 datasets: [{
                     data: [0, 52],
                     backgroundColor: [
-                        'rgba(16, 185, 129, 0.8)',
-                        'rgba(239, 68, 68, 0.8)'
-                    ]
+                        'rgba(16, 185, 129, 0.9)',
+                        'rgba(239, 68, 68, 0.9)'
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#fff'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' }
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: { size: 13, weight: 'bold' }
+                        }
+                    }
                 }
             }
         });
