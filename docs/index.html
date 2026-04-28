@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório IA-para-DEVs-SCTEC-T2</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+
+        .quality-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .quality-alta { background: #d1fae5; color: #065f46; }
+        .quality-media { background: #fef3c7; color: #92400e; }
+        .quality-baixa { background: #fee2e2; color: #991b1b; }
+
+        .repo-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .repo-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .repo-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+        }
+
+        .repo-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .repo-card .meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .recommendation-list {
+            list-style: none;
+        }
+
+        .recommendation-list li {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: var(--light);
+            border-left: 3px solid var(--warning);
+            border-radius: 4px;
+        }
+
+        .recommendation-list.urgent li {
+            border-left-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .recommendation-list.important li {
+            border-left-color: var(--warning);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Relatório da Organização</h1>
+        <p>IA-para-DEVs-SCTEC-T2 • GitHub Analytics Dashboard</p>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Gerado em: 28 de Abril de 2026</p>
+    </div>
+
+    <div class="container">
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total de Membros</h3>
+                <div class="value">38</div>
+            </div>
+            <div class="stat-card">
+                <h3>Repositórios</h3>
+                <div class="value">11</div>
+            </div>
+            <div class="stat-card">
+                <h3>Commits</h3>
+                <div class="value">102</div>
+            </div>
+            <div class="stat-card">
+                <h3>Pull Requests</h3>
+                <div class="value">63</div>
+            </div>
+            <div class="stat-card">
+                <h3>Times Ativos</h3>
+                <div class="value">8</div>
+            </div>
+            <div class="stat-card">
+                <h3>Issues Abertas</h3>
+                <div class="value">20</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('overview')">Visão Geral</button>
+            <button class="tab" onclick="showTab('repos')">Repositórios</button>
+            <button class="tab" onclick="showTab('quality')">Qualidade</button>
+            <button class="tab" onclick="showTab('recommendations')">Recomendações</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <div class="section">
+                <h2>📈 Distribuição de Atividades</h2>
+                <div class="chart-container">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💻 Linguagens de Programação</h2>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="languageChart"></canvas>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>👥 Times da Organização</h2>
+                <ul style="list-style: none;">
+                    <li style="padding: 0.5rem; margin: 0.5rem 0; background: var(--light); border-radius: 4px;">
+                        <strong>TIME DOS PROFESSORES</strong> - Administrativo
+                    </li>
+                    <li style="padding: 0.5rem; margin: 0.5rem 0; background: var(--light); border-radius: 4px;">
+                        <strong>TURMA 2 - MÓDULO 1 - TIME 1 a 8</strong> - 8 times de estudantes
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Repositories Tab -->
+        <div id="repos" class="tab-content">
+            <div class="section">
+                <h2>📦 Repositórios Principais</h2>
+                <div class="repo-grid">
+                    <div class="repo-card">
+                        <h3>hello-github</h3>
+                        <p>Repositório mais ativo da organização</p>
+                        <div class="meta">
+                            <span>🔹 Python</span>
+                            <span>📝 71 commits</span>
+                            <span>🔀 52 PRs</span>
+                            <span>⚠️ 19 issues</span>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <span class="quality-badge quality-alta">Código: Alta</span>
+                            <span class="quality-badge quality-media">Docs: Média</span>
+                        </div>
+                    </div>
+
+                    <div class="repo-card">
+                        <h3>hello-api</h3>
+                        <p>API Python/FastAPI</p>
+                        <div class="meta">
+                            <span>🔹 Python</span>
+                            <span>📝 18 commits</span>
+                            <span>🔀 8 PRs</span>
+                            <span>⚠️ 1 issue</span>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <span class="quality-badge quality-media">Código: Média</span>
+                            <span class="quality-badge quality-media">Docs: Média</span>
+                        </div>
+                    </div>
+
+                    <div class="repo-card">
+                        <h3>grupo07-semana03-techstorebot</h3>
+                        <p>API REST com Clean Architecture + Property-Based Testing</p>
+                        <div class="meta">
+                            <span>🔹 Python/FastAPI</span>
+                            <span>📝 0 commits</span>
+                            <span>🔀 0 PRs</span>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <span class="quality-badge quality-alta">Código: Alta</span>
+                            <span class="quality-badge quality-alta">Docs: Alta</span>
+                        </div>
+                    </div>
+
+                    <div class="repo-card">
+                        <h3>Grupo8-Atividade-23-04-2026</h3>
+                        <p>Atividade de uso do Kiro</p>
+                        <div class="meta">
+                            <span>🔹 TypeScript</span>
+                            <span>📝 4 commits</span>
+                            <span>🔀 0 PRs</span>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <span class="quality-badge quality-media">Código: Média</span>
+                            <span class="quality-badge quality-media">Docs: Média</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quality Tab -->
+        <div id="quality" class="tab-content">
+            <div class="section">
+                <h2>✅ Qualidade de Commits e PRs</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">Commits</h3>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="commitQualityChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: #6b7280; margin-top: 1rem;">
+                            Apenas <strong>31%</strong> seguem Conventional Commits
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">Pull Requests</h3>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="prQualityChart"></canvas>
+                        </div>
+                        <p style="text-align: center; color: #6b7280; margin-top: 1rem;">
+                            <strong>0%</strong> possuem code review formal
+                        </p>
+                    </div>
+                </div>
+
+                <div style="background: #fef2f2; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--danger); margin-top: 2rem;">
+                    <h3 style="color: var(--danger); margin-bottom: 1rem;">⚠️ Problemas Críticos</h3>
+                    <ul style="list-style: none;">
+                        <li style="padding: 0.5rem 0;">❌ Ausência total de code review formal</li>
+                        <li style="padding: 0.5rem 0;">❌ PRs mergeados sem aprovação explícita</li>
+                        <li style="padding: 0.5rem 0;">❌ 69% dos commits não seguem padrão</li>
+                        <li style="padding: 0.5rem 0;">❌ Mensagens genéricas (ex: "msg", "arquivo texto")</li>
+                    </ul>
+                </div>
+
+                <div style="background: #d1fae5; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--success); margin-top: 1rem;">
+                    <h3 style="color: var(--success); margin-bottom: 1rem;">✅ Pontos Positivos</h3>
+                    <ul style="list-style: none;">
+                        <li style="padding: 0.5rem 0;">✓ Uso crescente de Conventional Commits (46% nos PRs)</li>
+                        <li style="padding: 0.5rem 0;">✓ Alguns membros já demonstram boas práticas</li>
+                        <li style="padding: 0.5rem 0;">✓ Alta colaboração (63 PRs no total)</li>
+                        <li style="padding: 0.5rem 0;">✓ Commits recentes mostram melhoria</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations Tab -->
+        <div id="recommendations" class="tab-content">
+            <div class="section">
+                <h2>🚨 Recomendações Urgentes</h2>
+                <ul class="recommendation-list urgent">
+                    <li>Tornar code review obrigatório antes de merge (mínimo 1 aprovação)</li>
+                    <li>Criar template de PR com checklist de qualidade</li>
+                    <li>Implementar hook de commit para validar Conventional Commits</li>
+                    <li>Bloquear merge de PRs sem descrição adequada</li>
+                    <li>Configurar branch protection rules na main/master</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>⚠️ Recomendações Importantes</h2>
+                <ul class="recommendation-list important">
+                    <li>Realizar treinamento sobre Conventional Commits para todos os membros</li>
+                    <li>Criar guia de boas práticas de commit e PR</li>
+                    <li>Implementar linter de mensagens de commit (commitlint)</li>
+                    <li>Adicionar templates de PR e issue no repositório .github</li>
+                    <li>Estabelecer tempo mínimo de 24h para review de PRs</li>
+                    <li>Criar documentação sobre processo de code review</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>📚 Exemplos de Conventional Commits</h2>
+                <div style="background: var(--dark); color: #e5e7eb; padding: 1.5rem; border-radius: 8px; font-family: monospace;">
+                    <div style="margin-bottom: 0.5rem;">feat: adiciona autenticação JWT na API</div>
+                    <div style="margin-bottom: 0.5rem;">fix: corrige validação de email duplicado</div>
+                    <div style="margin-bottom: 0.5rem;">docs: atualiza README com instruções de instalação</div>
+                    <div style="margin-bottom: 0.5rem;">style: formata código seguindo PEP8</div>
+                    <div style="margin-bottom: 0.5rem;">refactor: reorganiza estrutura de pastas do projeto</div>
+                    <div style="margin-bottom: 0.5rem;">test: adiciona testes unitários para módulo de usuários</div>
+                    <div style="margin-bottom: 0.5rem;">chore: atualiza dependências do projeto</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Gerado por Kiro AI Assistant • IA-para-DEVs-SCTEC-T2</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="https://github.com/IA-para-DEVs-SCTEC-T2" target="_blank" style="color: var(--primary);">
+                Ver Organização no GitHub
+            </a>
+        </p>
+    </div>
+
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Activity Chart
+        const activityCtx = document.getElementById('activityChart').getContext('2d');
+        new Chart(activityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['hello-github', 'hello-api', 'atividade-grupo-4', 'Grupo8', 'Time-01', 'Grupo2'],
+                datasets: [{
+                    label: 'Commits',
+                    data: [71, 18, 7, 4, 1, 1],
+                    backgroundColor: 'rgba(37, 99, 235, 0.8)'
+                }, {
+                    label: 'Pull Requests',
+                    data: [52, 8, 0, 0, 0, 0],
+                    backgroundColor: 'rgba(124, 58, 237, 0.8)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' }
+                }
+            }
+        });
+
+        // Language Chart
+        const languageCtx = document.getElementById('languageChart').getContext('2d');
+        new Chart(languageCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Python', 'TypeScript', 'Sem linguagem'],
+                datasets: [{
+                    data: [6, 1, 4],
+                    backgroundColor: [
+                        'rgba(37, 99, 235, 0.8)',
+                        'rgba(124, 58, 237, 0.8)',
+                        'rgba(156, 163, 175, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Commit Quality Chart
+        const commitQualityCtx = document.getElementById('commitQualityChart').getContext('2d');
+        new Chart(commitQualityCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Conventional Commits', 'Sem Padrão'],
+                datasets: [{
+                    data: [28, 61],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(239, 68, 68, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // PR Quality Chart
+        const prQualityCtx = document.getElementById('prQualityChart').getContext('2d');
+        new Chart(prQualityCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Com Review', 'Sem Review'],
+                datasets: [{
+                    data: [0, 52],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(239, 68, 68, 0.8)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

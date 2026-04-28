@@ -1,0 +1,46 @@
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporários
+*.tmp
+*.temp
+.cache/
+
+# Dados sensíveis (se houver)
+.env
+.env.local
+secrets.json
+.kiro/settings/mcp.json
+
+# Backup
+*.bak
+*.backup
+
+# Node modules (se adicionar npm no futuro)
+node_modules/
+
+# Python (se adicionar scripts Python)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Build (se adicionar processo de build)
+dist/
+build/

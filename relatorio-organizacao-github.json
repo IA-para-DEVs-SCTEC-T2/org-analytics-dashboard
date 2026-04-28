@@ -1,0 +1,633 @@
+{
+  "metadata": {
+    "organizacao": "IA-para-DEVs-SCTEC-T2",
+    "data_geracao": "2026-04-28",
+    "gerado_por": "Kiro AI Assistant",
+    "descricao": "Relatório completo da organização GitHub IA-para-DEVs-SCTEC-T2 incluindo membros, repositórios, atividades, times e métricas de qualidade"
+  },
+  "resumo_executivo": {
+    "total_membros": 38,
+    "total_repositorios": 11,
+    "total_commits_estimado": 102,
+    "total_pull_requests": 63,
+    "total_times": 9,
+    "times_ativos": 8
+  },
+  "membros": {
+    "total": 38,
+    "lista_completa": [
+      "AlyssonGirotto",
+      "andreagonzalez",
+      "andrevilmo",
+      "biel1993ph",
+      "cae07",
+      "cassianobigodudo",
+      "DarielVerdecia93",
+      "dutra357",
+      "edunotari",
+      "fabiojpegoraro",
+      "FelipeRamosOliveira",
+      "figorgarcia",
+      "gbetsa",
+      "gmcasati",
+      "gvmertens",
+      "jacsontobiasbordin",
+      "Jardheson",
+      "joaopuel",
+      "Jouusey",
+      "jrcosta",
+      "lucasbecker",
+      "Lucasschwertz",
+      "luizfeam2020",
+      "marcelosoaresblu",
+      "micheleoliveiracod",
+      "neimarbl",
+      "paolojcm",
+      "PauloSergioLR",
+      "prbretas",
+      "RafaelMontalvao",
+      "Raphanrn",
+      "samuelmarquesgit",
+      "simonerosicar",
+      "thiagocaandrade",
+      "tiodanas",
+      "vborges1",
+      "weltonsabino",
+      "wiltonssp"
+    ],
+    "observacao": "Lista completa de membros da organização, incluindo professores e alunos"
+  },
+  "times": {
+    "total": 9,
+    "ativos": 8,
+    "lista": [
+      {
+        "id": 17254225,
+        "nome": "TIME DOS PROFESSORES",
+        "slug": "time-dos-professores",
+        "tipo": "Administrativo",
+        "privacidade": "closed",
+        "url": "https://github.com/orgs/IA-para-DEVs-SCTEC-T2/teams/time-dos-professores"
+      },
+      {
+        "id": 17254121,
+        "nome": "TURMA 2 - MÓDULO 1 - TIME 1",
+        "slug": "turma-2-modulo-1-time-1",
+        "tipo": "Estudantes",
+        "privacidade": "closed",
+        "url": "https://github.com/orgs/IA-para-DEVs-SCTEC-T2/teams/turma-2-modulo-1-time-1"
+      },
+      {
+        "id": 17254131,
+        "nome": "TURMA 2 - MÓDULO 1 - TIME 2",
+        "slug": "turma-2-modulo-1-time-2",
+        "tipo": "Estudantes",
+        "privacidade": "closed",
+        "url": "https://github.com/orgs/IA-para-DEVs-SCTEC-T2/teams/turma-2-modulo-1-time-2"
+      },
+      {
+        "id": 17254141,
+        "nome": "TURMA 2 - MÓDULO 1 - TIME 3",
+        "slug": "turma-2-modulo-1-time-3",
+        "tipo": "Estudantes",
+        "privacidade": "closed",
+        "url": "https://github.com/orgs/IA-para-DEVs-SCTEC-T2/teams/turma-2-modulo-1-time-3"
+      },
+      {
+        "id": 17254152,
+        "nome": "TURMA 2 - MÓDULO 1 - TIME 4",
+        "slug": "turma-2-modulo-1-time-4",
+        "tipo": "Estudantes",
+        "privacidade": "closed",
+        "url": "https://github.com/orgs/IA-para-DEVs-SCTEC-T2/teams/turma-2-modulo-1-time-4"
+      },
+      {
+        "id": 17254162,
+        "nome": "TURMA 2 - MÓDULO 1 - TIME 5",
+        "slug": "turma-2-modulo-1-time-5",
+        "tipo": "Estudantes",
+        "privacidade": "closed",
+        "url": "https://github.com/orgs/IA-para-DEVs-SCTEC-T2/teams/turma-2-modulo-1-time-5"
+      },
+      {
+        "id": 17254170,
+        "nome": "TURMA 2 - MÓDULO 1 - TIME 6",
+        "slug": "turma-2-modulo-1-time-6",
+        "tipo": "Estudantes",
+        "privacidade": "closed",
+        "url": "https://github.com/orgs/IA-para-DEVs-SCTEC-T2/teams/turma-2-modulo-1-time-6"
+      },
+      {
+        "id": 17254181,
+        "nome": "TURMA 2 - MÓDULO 1 - TIME 7",
+        "slug": "turma-2-modulo-1-time-7",
+        "tipo": "Estudantes",
+        "privacidade": "closed",
+        "url": "https://github.com/orgs/IA-para-DEVs-SCTEC-T2/teams/turma-2-modulo-1-time-7"
+      },
+      {
+        "id": 17254188,
+        "nome": "TURMA 2 - MÓDULO 1 - TIME 8",
+        "slug": "turma-2-modulo-1-time-8",
+        "tipo": "Estudantes",
+        "privacidade": "closed",
+        "url": "https://github.com/orgs/IA-para-DEVs-SCTEC-T2/teams/turma-2-modulo-1-time-8"
+      }
+    ]
+  },
+  "repositorios": {
+    "total": 11,
+    "por_linguagem": {
+      "Python": 6,
+      "TypeScript": 1,
+      "Sem linguagem definida": 4
+    },
+    "lista_detalhada": [
+      {
+        "nome": ".github",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/.github",
+        "linguagem": null,
+        "descricao": null,
+        "branch_padrao": "main",
+        "tamanho_kb": 3,
+        "issues_abertas": 0,
+        "tem_wiki": true,
+        "commits": 0,
+        "pull_requests": 0,
+        "time_associado": "Administrativo",
+        "qualidade": {
+          "codigo": "N/A",
+          "documentacao": "Baixa",
+          "seguranca": "N/A",
+          "observacoes": "Repositório de configuração da organização"
+        }
+      },
+      {
+        "nome": "atividade_23_04",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/atividade_23_04",
+        "linguagem": null,
+        "descricao": null,
+        "branch_padrao": "main",
+        "tamanho_kb": 14,
+        "issues_abertas": 0,
+        "tem_wiki": true,
+        "commits": 0,
+        "pull_requests": 0,
+        "time_associado": "Geral",
+        "qualidade": {
+          "codigo": "N/A",
+          "documentacao": "Baixa",
+          "seguranca": "N/A",
+          "observacoes": "Repositório de atividade sem linguagem definida"
+        }
+      },
+      {
+        "nome": "atividade-grupo-4-23-04",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/atividade-grupo-4-23-04",
+        "linguagem": "Python",
+        "descricao": "Atividade Specs Kiro - 23/04/2026",
+        "branch_padrao": "main",
+        "tamanho_kb": 31,
+        "issues_abertas": 0,
+        "tem_wiki": false,
+        "commits": 7,
+        "pull_requests": 0,
+        "time_associado": "TIME 4",
+        "qualidade": {
+          "codigo": "Média",
+          "documentacao": "Média",
+          "seguranca": "Média",
+          "observacoes": "Projeto Python com descrição clara, 7 commits indicam desenvolvimento ativo"
+        }
+      },
+      {
+        "nome": "AULA-23-04-2026",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/AULA-23-04-2026",
+        "linguagem": null,
+        "descricao": null,
+        "branch_padrao": "main",
+        "tamanho_kb": 0,
+        "issues_abertas": 0,
+        "tem_wiki": false,
+        "commits": 0,
+        "pull_requests": 0,
+        "time_associado": "Geral",
+        "qualidade": {
+          "codigo": "N/A",
+          "documentacao": "Baixa",
+          "seguranca": "N/A",
+          "observacoes": "Repositório vazio criado para aula"
+        }
+      },
+      {
+        "nome": "grupo07-semana03-techstorebot",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/grupo07-semana03-techstorebot",
+        "linguagem": null,
+        "descricao": "API REST de suporte ao cliente em Python/FastAPI que responde FAQs sobre entrega, trocas e pagamento — e abre tickets automaticamente quando não souber responder. Clean Architecture + Property-Based Testing com Hypothesis.",
+        "branch_padrao": "main",
+        "tamanho_kb": 19,
+        "issues_abertas": 0,
+        "tem_wiki": true,
+        "commits": 0,
+        "pull_requests": 0,
+        "time_associado": "TIME 7",
+        "qualidade": {
+          "codigo": "Alta",
+          "documentacao": "Alta",
+          "seguranca": "Alta",
+          "observacoes": "Excelente descrição detalhada, menciona Clean Architecture e testes com Hypothesis, indicando boas práticas"
+        }
+      },
+      {
+        "nome": "hello-github",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/hello-github",
+        "linguagem": "Python",
+        "descricao": null,
+        "branch_padrao": "main",
+        "tamanho_kb": 52,
+        "issues_abertas": 19,
+        "tem_wiki": false,
+        "commits": 71,
+        "pull_requests": 52,
+        "time_associado": "Geral",
+        "qualidade": {
+          "codigo": "Alta",
+          "documentacao": "Média",
+          "seguranca": "Média",
+          "observacoes": "Repositório muito ativo com 71 commits e 52 PRs, indicando colaboração intensa. 19 issues abertas sugerem desenvolvimento contínuo"
+        }
+      },
+      {
+        "nome": "Time-01-Atividade-23-04-2026",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/Time-01-Atividade-23-04-2026",
+        "linguagem": "Python",
+        "descricao": null,
+        "branch_padrao": "main",
+        "tamanho_kb": 248,
+        "issues_abertas": 0,
+        "tem_wiki": true,
+        "commits": 1,
+        "pull_requests": 0,
+        "time_associado": "TIME 1",
+        "qualidade": {
+          "codigo": "Baixa",
+          "documentacao": "Baixa",
+          "seguranca": "Média",
+          "observacoes": "Repositório grande (248KB) mas com apenas 1 commit, pode ter sido importado ou ter arquivos grandes"
+        }
+      },
+      {
+        "nome": "hello-api",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/hello-api",
+        "linguagem": "Python",
+        "descricao": null,
+        "branch_padrao": "master",
+        "tamanho_kb": 78,
+        "issues_abertas": 1,
+        "tem_wiki": true,
+        "commits": 18,
+        "pull_requests": 8,
+        "time_associado": "Geral",
+        "qualidade": {
+          "codigo": "Média",
+          "documentacao": "Média",
+          "seguranca": "Média",
+          "observacoes": "API Python com atividade moderada (18 commits, 8 PRs), 1 issue aberta"
+        }
+      },
+      {
+        "nome": "Grupo8-Atividade-23-04-2026",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/Grupo8-Atividade-23-04-2026",
+        "linguagem": "TypeScript",
+        "descricao": "Atividade de 23/04/2026 - Uso do Kiro",
+        "branch_padrao": "main",
+        "tamanho_kb": 32,
+        "issues_abertas": 0,
+        "tem_wiki": false,
+        "commits": 4,
+        "pull_requests": 0,
+        "time_associado": "TIME 8",
+        "qualidade": {
+          "codigo": "Média",
+          "documentacao": "Média",
+          "seguranca": "Média",
+          "observacoes": "Único repositório TypeScript, 4 commits indicam início de desenvolvimento"
+        }
+      },
+      {
+        "nome": "Grupo2-Atividade-23-04-2026",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/Grupo2-Atividade-23-04-2026",
+        "linguagem": "Python",
+        "descricao": null,
+        "branch_padrao": "main",
+        "tamanho_kb": 49,
+        "issues_abertas": 0,
+        "tem_wiki": false,
+        "commits": 1,
+        "pull_requests": 0,
+        "time_associado": "TIME 2",
+        "qualidade": {
+          "codigo": "Baixa",
+          "documentacao": "Baixa",
+          "seguranca": "Média",
+          "observacoes": "Apenas 1 commit, desenvolvimento inicial"
+        }
+      },
+      {
+        "nome": "AULA-27-04-2026",
+        "url": "https://github.com/IA-para-DEVs-SCTEC-T2/AULA-27-04-2026",
+        "linguagem": null,
+        "descricao": null,
+        "branch_padrao": "main",
+        "tamanho_kb": 0,
+        "issues_abertas": 0,
+        "tem_wiki": false,
+        "commits": 0,
+        "pull_requests": 0,
+        "time_associado": "Geral",
+        "qualidade": {
+          "codigo": "N/A",
+          "documentacao": "Baixa",
+          "seguranca": "N/A",
+          "observacoes": "Repositório vazio criado para aula futura"
+        }
+      }
+    ]
+  },
+  "metricas_atividade": {
+    "commits": {
+      "total_estimado": 102,
+      "por_repositorio": {
+        "hello-github": 71,
+        "hello-api": 18,
+        "atividade-grupo-4-23-04": 7,
+        "Grupo8-Atividade-23-04-2026": 4,
+        "Time-01-Atividade-23-04-2026": 1,
+        "Grupo2-Atividade-23-04-2026": 1,
+        "outros": 0
+      },
+      "observacao": "hello-github é o repositório mais ativo com 71 commits"
+    },
+    "pull_requests": {
+      "total": 63,
+      "por_repositorio": {
+        "hello-github": 52,
+        "hello-api": 8,
+        "outros": 3
+      },
+      "observacao": "Alta atividade de colaboração, especialmente no hello-github"
+    },
+    "issues": {
+      "total_abertas": 20,
+      "por_repositorio": {
+        "hello-github": 19,
+        "hello-api": 1
+      }
+    }
+  },
+  "qualidade_commits_e_prs": {
+    "resumo": {
+      "total_commits_analisados": 89,
+      "total_prs_analisados": 52,
+      "commits_com_conventional_commits": 28,
+      "commits_sem_padrao": 61,
+      "prs_merged": 31,
+      "prs_open": 21,
+      "taxa_merge_prs": "59.6%",
+      "media_tempo_merge": "Rápido (minutos a horas)",
+      "prs_com_review": 0,
+      "prs_sem_review": 52
+    },
+    "analise_commits": {
+      "qualidade_geral": "Baixa a Média",
+      "observacoes": "Apenas 31% dos commits seguem o padrão Conventional Commits. Muitos commits têm mensagens genéricas ou pouco descritivas.",
+      "exemplos_bons": [
+        "feat: adiciona arquivo hello_paula.py",
+        "docs: jacson-tobias-bordin-manual",
+        "chore: new readme",
+        "feat(teste): adicionar arquivo de teste",
+        "[docs] - (readme): adiciona documentação completa do projeto",
+        "fix: remove arquivos sensíveis (.env e __pycache__)",
+        "feat: implementa API REST completa com FastAPI"
+      ],
+      "exemplos_ruins": [
+        "msg",
+        "arquivo texto",
+        "hello gabriel",
+        "Merge do josé Vitor",
+        "aprendendo git com IA",
+        "Minha contribuição manual"
+      ],
+      "padroes_identificados": {
+        "conventional_commits": {
+          "feat": 18,
+          "docs": 4,
+          "chore": 3,
+          "fix": 2,
+          "feta": 1
+        },
+        "sem_padrao": {
+          "merge_manual": 15,
+          "mensagens_genericas": 20,
+          "descricoes_vagas": 26
+        }
+      },
+      "erros_comuns": [
+        "Uso de 'msg' como mensagem de commit",
+        "Mensagens em minúsculas sem tipo (ex: 'hello gabriel')",
+        "Falta de contexto sobre o que foi alterado",
+        "Typo: 'feta' ao invés de 'feat'",
+        "Mensagens de merge manuais sem contexto",
+        "Commits sem descrição do propósito da mudança"
+      ]
+    },
+    "analise_pull_requests": {
+      "qualidade_geral": "Baixa",
+      "observacoes": "Nenhum PR possui review comments ou discussões. PRs são mergeados rapidamente sem processo de revisão formal. Títulos variam entre bem formatados e genéricos.",
+      "titulos_bons": [
+        "feat: add hello-michele-kiro.py",
+        "docs: jacson-tobias-bordin-manual",
+        "feat: add hello_dariel_extra.py for PR demo",
+        "feat: adiciona arquivo com apoio da IA",
+        "[docs] - (readme): adiciona documentação completa do projeto"
+      ],
+      "titulos_ruins": [
+        "msg",
+        "arquivo texto",
+        "hello gabriel",
+        "Merge do josé Vitor",
+        "aprendendo git com IA",
+        "Herlles",
+        "Branch guilherme mertens"
+      ],
+      "metricas": {
+        "prs_com_conventional_commits": 24,
+        "prs_sem_padrao": 28,
+        "taxa_conventional_commits": "46.2%",
+        "tempo_medio_merge": "< 30 minutos",
+        "prs_com_comentarios": 0,
+        "prs_com_review_comments": 0,
+        "taxa_aprovacao_sem_review": "100%"
+      },
+      "problemas_identificados": [
+        "Ausência total de code review formal",
+        "PRs mergeados sem aprovação explícita",
+        "Nenhum comentário ou discussão nos PRs",
+        "Falta de descrição detalhada nos PRs",
+        "Títulos inconsistentes (alguns seguem padrão, outros não)",
+        "Merge muito rápido sem tempo para revisão adequada",
+        "Typos em títulos (ex: 'chor' ao invés de 'chore')",
+        "Uso de nomes de branches como título de PR"
+      ]
+    },
+    "comparacao_repositorios": {
+      "hello-github": {
+        "commits": 71,
+        "prs": 52,
+        "qualidade_commits": "Baixa a Média",
+        "qualidade_prs": "Baixa",
+        "observacao": "Repositório de aprendizado com alta atividade mas baixa qualidade de processo. Ideal para treinar boas práticas."
+      },
+      "hello-api": {
+        "commits": 18,
+        "prs": 8,
+        "qualidade_commits": "Média a Alta",
+        "qualidade_prs": "Média",
+        "observacao": "Commits mais descritivos e estruturados. Alguns commits excelentes com descrições detalhadas de múltiplas linhas."
+      }
+    },
+    "impacto_na_organizacao": {
+      "pontos_positivos": [
+        "Uso crescente de Conventional Commits (46% nos PRs)",
+        "Alguns membros já demonstram boas práticas",
+        "Colaboração ativa com 63 PRs no total",
+        "Commits recentes mostram melhoria na qualidade"
+      ],
+      "riscos": [
+        "Falta de rastreabilidade de mudanças",
+        "Dificuldade em gerar changelogs automáticos",
+        "Ausência de processo de revisão pode levar a bugs",
+        "Histórico confuso dificulta debugging",
+        "Falta de documentação do que foi alterado"
+      ]
+    }
+  },
+  "analise_qualidade": {
+    "geral": {
+      "codigo": "Média",
+      "documentacao": "Baixa a Média",
+      "seguranca": "Média",
+      "observacoes": "A maioria dos repositórios carece de documentação adequada (README, descrições). Apenas alguns projetos demonstram boas práticas de desenvolvimento."
+    },
+    "pontos_fortes": [
+      "Alto nível de colaboração evidenciado por 63 PRs",
+      "Repositório hello-github muito ativo com 71 commits",
+      "Projeto grupo07-semana03-techstorebot demonstra excelentes práticas (Clean Architecture, testes)",
+      "Diversidade de linguagens (Python predominante, TypeScript presente)",
+      "Estrutura organizacional clara com 8 times de estudantes"
+    ],
+    "pontos_de_melhoria": [
+      "Muitos repositórios sem descrição adequada",
+      "Falta de README em vários projetos",
+      "Alguns repositórios com pouquíssimos commits (1-4)",
+      "Repositórios vazios ou inativos (AULA-23-04-2026, AULA-27-04-2026)",
+      "Necessidade de padronização de documentação",
+      "Alguns times sem repositórios claramente associados"
+    ],
+    "recomendacoes": [
+      "Implementar template de README para todos os repositórios",
+      "Estabelecer padrões de commit messages (Conventional Commits)",
+      "Adicionar descrições claras a todos os repositórios",
+      "Implementar CI/CD básico para garantir qualidade",
+      "Adicionar badges de status nos READMEs",
+      "Criar guias de contribuição (CONTRIBUTING.md)",
+      "Implementar code review obrigatório via PRs",
+      "Adicionar análise de segurança automatizada (Dependabot, CodeQL)"
+    ],
+    "recomendacoes_commits_e_prs": {
+      "urgente": [
+        "Tornar code review obrigatório antes de merge (mínimo 1 aprovação)",
+        "Criar template de PR com checklist de qualidade",
+        "Implementar hook de commit para validar Conventional Commits",
+        "Bloquear merge de PRs sem descrição adequada",
+        "Configurar branch protection rules na main/master"
+      ],
+      "importante": [
+        "Realizar treinamento sobre Conventional Commits para todos os membros",
+        "Criar guia de boas práticas de commit e PR",
+        "Implementar linter de mensagens de commit (commitlint)",
+        "Adicionar templates de PR e issue no repositório .github",
+        "Estabelecer tempo mínimo de 24h para review de PRs",
+        "Criar documentação sobre processo de code review"
+      ],
+      "desejavel": [
+        "Implementar CI que valida qualidade de commits",
+        "Adicionar bot para sugerir melhorias em PRs",
+        "Criar métricas de qualidade de código no dashboard",
+        "Implementar changelog automático baseado em commits",
+        "Adicionar labels automáticos baseados em tipo de commit",
+        "Criar sistema de reconhecimento para boas práticas"
+      ],
+      "exemplos_conventional_commits": {
+        "feat": "feat: adiciona autenticação JWT na API",
+        "fix": "fix: corrige validação de email duplicado",
+        "docs": "docs: atualiza README com instruções de instalação",
+        "style": "style: formata código seguindo PEP8",
+        "refactor": "refactor: reorganiza estrutura de pastas do projeto",
+        "test": "test: adiciona testes unitários para módulo de usuários",
+        "chore": "chore: atualiza dependências do projeto",
+        "perf": "perf: otimiza query de busca de alunos",
+        "ci": "ci: adiciona workflow de testes automatizados",
+        "build": "build: configura Docker para ambiente de produção"
+      },
+      "template_pr_sugerido": {
+        "titulo": "tipo: descrição curta e clara",
+        "descricao": "## Descrição\n\nDescreva o que foi alterado e por quê.\n\n## Tipo de mudança\n\n- [ ] Bug fix\n- [ ] Nova feature\n- [ ] Breaking change\n- [ ] Documentação\n\n## Como testar\n\n1. Passo 1\n2. Passo 2\n\n## Checklist\n\n- [ ] Código segue os padrões do projeto\n- [ ] Testes foram adicionados/atualizados\n- [ ] Documentação foi atualizada\n- [ ] Commit messages seguem Conventional Commits"
+      }
+    }
+  },
+  "repositorios_por_time": {
+    "TIME_DOS_PROFESSORES": [],
+    "TIME_1": ["Time-01-Atividade-23-04-2026"],
+    "TIME_2": ["Grupo2-Atividade-23-04-2026"],
+    "TIME_3": [],
+    "TIME_4": ["atividade-grupo-4-23-04"],
+    "TIME_5": [],
+    "TIME_6": [],
+    "TIME_7": ["grupo07-semana03-techstorebot"],
+    "TIME_8": ["Grupo8-Atividade-23-04-2026"],
+    "GERAL": [
+      ".github",
+      "atividade_23_04",
+      "hello-github",
+      "hello-api",
+      "AULA-23-04-2026",
+      "AULA-27-04-2026"
+    ],
+    "observacao": "Alguns times ainda não possuem repositórios específicos associados"
+  },
+  "uso_futuro_claude": {
+    "como_usar": "Este arquivo JSON pode ser referenciado em conversas futuras com Claude usando #[[file:relatorio-organizacao-github.json]]",
+    "casos_de_uso": [
+      "Análise de tendências de desenvolvimento ao longo do tempo",
+      "Comparação de atividade entre times",
+      "Identificação de repositórios que precisam de atenção",
+      "Planejamento de melhorias de qualidade",
+      "Geração de relatórios executivos",
+      "Monitoramento de progresso de atividades",
+      "Análise de colaboração entre membros",
+      "Avaliação de qualidade de commits e PRs",
+      "Identificação de membros que precisam de treinamento",
+      "Tracking de adoção de boas práticas (Conventional Commits)",
+      "Análise de efetividade do processo de code review"
+    ],
+    "atualizacao": "Recomenda-se atualizar este relatório mensalmente ou após eventos importantes (fim de sprints, entregas de projetos)",
+    "metricas_acompanhamento": {
+      "commits": "Acompanhar evolução da taxa de Conventional Commits (meta: >80%)",
+      "prs": "Monitorar taxa de PRs com review (meta: 100%)",
+      "qualidade": "Avaliar redução de commits genéricos (meta: <10%)",
+      "colaboracao": "Medir tempo médio de review de PRs (meta: 24-48h)",
+      "documentacao": "Verificar % de repositórios com README completo (meta: 100%)"
+    }
+  }
+}
