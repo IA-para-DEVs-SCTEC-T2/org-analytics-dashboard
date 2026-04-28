@@ -2,16 +2,20 @@
   "metadata": {
     "organizacao": "IA-para-DEVs-SCTEC-T2",
     "data_geracao": "2026-04-28",
+    "ultima_atualizacao": "2026-04-28",
     "gerado_por": "Kiro AI Assistant",
-    "descricao": "Relatório completo da organização GitHub IA-para-DEVs-SCTEC-T2 incluindo membros, repositórios, atividades, times e métricas de qualidade"
+    "descricao": "Relatório completo da organização GitHub IA-para-DEVs-SCTEC-T2 incluindo membros, repositórios, atividades, times, métricas de qualidade e contribuições individuais por membro"
   },
   "resumo_executivo": {
     "total_membros": 38,
     "total_repositorios": 11,
     "total_commits_estimado": 102,
+    "total_commits_contabilizados": 117,
+    "membros_com_contribuicoes": 26,
     "total_pull_requests": 63,
     "total_times": 9,
-    "times_ativos": 8
+    "times_ativos": 8,
+    "maior_contribuidor": "FelipeRamosOliveira (15 commits)"
   },
   "membros": {
     "total": 38,
@@ -55,7 +59,74 @@
       "weltonsabino",
       "wiltonssp"
     ],
-    "observacao": "Lista completa de membros da organização, incluindo professores e alunos"
+    "observacao": "Lista completa de membros da organização, incluindo professores e alunos",
+    "contribuicoes": {
+      "total_membros_com_commits": 26,
+      "total_commits_contabilizados": 117,
+      "por_membro": {
+        "FelipeRamosOliveira": 15,
+        "Jouusey": 8,
+        "thiagocaandrade": 7,
+        "AlyssonGirotto": 7,
+        "jrcosta": 7,
+        "gbetsa": 5,
+        "cassianobigodudo": 5,
+        "DarielVerdecia93": 5,
+        "Lucasschwertz": 4,
+        "micheleoliveiracod": 4,
+        "dutra357": 4,
+        "cae07": 4,
+        "figorgarcia": 4,
+        "joaopuel": 3,
+        "edunotari": 2,
+        "fabiojpegoraro": 2,
+        "andreagonzalez": 2,
+        "tiodanas": 2,
+        "neimarbl": 2,
+        "jacsontobiasbordin": 2,
+        "gvmertens": 1,
+        "weltonsabino": 1,
+        "gmcasati": 1,
+        "PauloSergioLR": 1,
+        "gcasatifox": 1,
+        "biel1993ph": 1
+      },
+      "top_5_contribuidores": [
+        {
+          "usuario": "FelipeRamosOliveira",
+          "commits": 15,
+          "percentual": "12.8%"
+        },
+        {
+          "usuario": "Jouusey",
+          "commits": 8,
+          "percentual": "6.8%"
+        },
+        {
+          "usuario": "thiagocaandrade",
+          "commits": 7,
+          "percentual": "6.0%"
+        },
+        {
+          "usuario": "AlyssonGirotto",
+          "commits": 7,
+          "percentual": "6.0%"
+        },
+        {
+          "usuario": "jrcosta",
+          "commits": 7,
+          "percentual": "6.0%"
+        }
+      ],
+      "membros_sem_commits_registrados": 12,
+      "observacoes": [
+        "Dados coletados dos repositórios: hello-github, hello-api, atividade-grupo-4-23-04, Grupo8-Atividade-23-04-2026, Time-01-Atividade-23-04-2026, Grupo2-Atividade-23-04-2026, org-analytics-dashboard",
+        "26 membros (68% do total) têm commits registrados nos repositórios analisados",
+        "12 membros (32% do total) não têm commits registrados nos repositórios analisados",
+        "FelipeRamosOliveira é o maior contribuidor com 15 commits (12.8% do total)",
+        "Os top 5 contribuidores representam 37.6% de todos os commits"
+      ]
+    }
   },
   "times": {
     "total": 9,
