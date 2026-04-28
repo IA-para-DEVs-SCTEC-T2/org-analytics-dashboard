@@ -1,1316 +1,785 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IA para DEVs · T2</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg: #0d1117;
-      --surface: #161b22;
-      --border: #30363d;
-      --text: #c9d1d9;
-      --text-muted: #8b949e;
-      --accent: #58a6ff;
-      --accent-hover: #79c0ff;
-      --success: #3fb950;
-      --warning: #d29922;
-      --danger: #f85149;
-      --gold: #ffd700;
-      --silver: #c0c0c0;
-      --bronze: #cd7f32;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 0;
-      margin: 0;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    nav {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    .header-right {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .theme-toggle {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .theme-toggle:hover {
-      background: var(--border);
-    }
-
-    .hero {
-      text-align: center;
-      padding: 3rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--accent);
-    }
-
-    .hero h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      text-align: center;
-    }
-
-    .stat-card h3 {
-      font-size: 2rem;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    section {
-      margin: 3rem 0;
-      padding: 2rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    section:last-child {
-      border-bottom: none;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .section-header h2 {
-      font-size: 1.8rem;
-    }
-
-    .badge {
-      background: var(--accent);
-      color: var(--bg);
-      padding: 0.25rem 0.75rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .podium {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .podium-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      text-align: center;
-      position: relative;
-    }
-
-    .podium-card.first {
-      border-color: var(--gold);
-      order: 2;
-    }
-
-    .podium-card.second {
-      border-color: var(--silver);
-      order: 1;
-    }
-
-    .podium-card.third {
-      border-color: var(--bronze);
-      order: 3;
-    }
-
-    .medal {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .podium-card h4 {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .podium-card .names {
-      font-size: 1.1rem;
-      margin: 0.5rem 0;
-      color: var(--text);
-    }
-
-    .podium-card .count {
-      font-size: 2rem;
-      color: var(--accent);
-      font-weight: bold;
-      margin: 0.5rem 0;
-    }
-
-    .podium-card .percentage {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-
-    .chart-container {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-    }
-
-    .chart-title {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      color: var(--text);
-    }
-
-    .chart-description {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .bar-chart {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .bar-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .bar-label {
-      min-width: 150px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .bar-track {
-      flex: 1;
-      background: var(--border);
-      height: 24px;
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .bar-fill {
-      background: var(--accent);
-      height: 100%;
-      transition: width 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 0.5rem;
-      color: white;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .bar-value {
-      min-width: 40px;
-      text-align: right;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .engagement-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .engagement-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-    }
-
-    .engagement-stat {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-
-    .engagement-bar {
-      flex: 1;
-      background: var(--border);
-      height: 32px;
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .engagement-fill {
-      background: var(--success);
-      height: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 0.75rem;
-      color: white;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    .engagement-fill.inactive {
-      background: var(--warning);
-    }
-
-    .engagement-label {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .engagement-value {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--accent);
-      margin: 0.5rem 0;
-    }
-
-    .waiting-list {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-    }
-
-    .waiting-list p {
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
-    .user-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 0.75rem;
-    }
-
-    .user-tag {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      padding: 0.5rem 0.75rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .quality-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .quality-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-    }
-
-    .quality-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-
-    .quality-stat {
-      text-align: center;
-    }
-
-    .quality-stat-value {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: var(--accent);
-    }
-
-    .quality-stat-label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .quality-bars {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin: 1rem 0;
-    }
-
-    .quality-bar-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .quality-bar-label {
-      min-width: 120px;
-      font-size: 0.9rem;
-    }
-
-    .quality-bar-track {
-      flex: 1;
-      background: var(--border);
-      height: 28px;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .quality-bar-fill {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 0.75rem;
-      color: white;
-      font-weight: 600;
-      font-size: 0.85rem;
-    }
-
-    .quality-bar-fill.success {
-      background: var(--success);
-    }
-
-    .quality-bar-fill.warning {
-      background: var(--warning);
-    }
-
-    .examples {
-      margin: 1rem 0;
-    }
-
-    .examples h4 {
-      font-size: 0.95rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-muted);
-    }
-
-    .example-item {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      padding: 0.5rem 0.75rem;
-      border-radius: 4px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.85rem;
-      margin: 0.25rem 0;
-      color: var(--success);
-    }
-
-    .example-item.bad {
-      color: var(--danger);
-    }
-
-    .commit-types {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-
-    .commit-type-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      padding: 1rem;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    .commit-type-name {
-      font-family: 'Courier New', monospace;
-      color: var(--accent);
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-
-    .commit-type-count {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--text);
-    }
-
-    .commit-types-note {
-      background: var(--surface);
-      border-left: 3px solid var(--accent);
-      padding: 1rem;
-      margin-top: 1rem;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .teams-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-
-    .team-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem;
-    }
-
-    .team-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: var(--accent);
-    }
-
-    .team-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .opportunities {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-
-    .opportunity-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--accent);
-      border-radius: 8px;
-      padding: 1.5rem;
-    }
-
-    .opportunity-card.urgent {
-      border-left-color: var(--danger);
-    }
-
-    .opportunity-card.important {
-      border-left-color: var(--warning);
-    }
-
-    .opportunity-card.improvement {
-      border-left-color: var(--success);
-    }
-
-    .opportunity-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .opportunity-priority {
-      background: var(--danger);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .opportunity-card.important .opportunity-priority {
-      background: var(--warning);
-    }
-
-    .opportunity-card.improvement .opportunity-priority {
-      background: var(--success);
-    }
-
-    .opportunity-icon {
-      font-size: 1.5rem;
-    }
-
-    .opportunity-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .opportunity-description {
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-      .podium {
-        grid-template-columns: 1fr;
-      }
-
-      .podium-card.first,
-      .podium-card.second,
-      .podium-card.third {
-        order: initial;
-      }
-
-      .engagement-grid,
-      .quality-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · IA para DEVs · T2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #161922;
+    --surface2: #1e2330;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0f2f7;
+    --text2: #8b92a8;
+    --text3: #555e78;
+    --accent: #1aba8a;
+    --accent2: #0d8a63;
+    --amber: #f0a94a;
+    --amber2: #c47a10;
+    --red: #e05a5a;
+    --blue: #4a9df0;
+    --purple: #9b87f5;
+    --gold: #f0c040;
+    --silver: #b0bcd0;
+    --bronze: #c8915a;
+    --nav-bg: rgba(13,15,20,0.85);
+  }
+  html[data-theme="light"] {
+    --bg: #f4f5f7;
+    --surface: #ffffff;
+    --surface2: #eef0f4;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.16);
+    --text: #111318;
+    --text2: #4a5068;
+    --text3: #9099b2;
+    --accent: #0d8a63;
+    --accent2: #0a6e4f;
+    --amber: #b86d0a;
+    --amber2: #8a4f04;
+    --red: #c03030;
+    --blue: #1a6ec4;
+    --purple: #6b52d4;
+    --gold: #b07a00;
+    --silver: #6a7888;
+    --bronze: #8a5020;
+    --nav-bg: rgba(244,245,247,0.9);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--nav-bg);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 56px;
+  }
+  .nav-brand { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--text); letter-spacing: 0.01em; }
+  .nav-brand span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: 13px; color: var(--text2); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-date { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); }
+
+  /* LAYOUT */
+  .page { max-width: 1100px; margin: 0 auto; padding: 88px 2rem 4rem; }
+
+  /* HERO */
+  .hero { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--border); margin-bottom: 3rem; }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+  .hero-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; }
+  .hero-title em { color: var(--accent); font-style: normal; }
+  .hero-sub { font-size: 15px; color: var(--text2); max-width: 540px; line-height: 1.7; }
+
+  /* METRICS */
+  .metrics { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 3rem; }
+  .metric {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+    animation: fadeUp .5s ease both;
+  }
+  .metric:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .metric::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0; transition: opacity .2s; }
+  .metric:hover::before { opacity: 1; }
+  .metric-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .metric-value { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 4px; }
+  .metric-sub { font-size: 11px; color: var(--text3); }
+  .metric.accent .metric-value { color: var(--accent); }
+  .metric.warn .metric-value { color: var(--amber); }
+
+  /* SECTION */
+  section { margin-bottom: 3.5rem; animation: fadeUp .5s ease both; }
+  .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 1.5rem; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 600; }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+  .section-badge { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); }
+
+  /* GRID 2 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: var(--border2); }
+  .card-title { font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .theme-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text2);
+    cursor: pointer;
+    transition: background .2s, color .2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .theme-btn:hover { background: var(--border2); color: var(--text); }
+
+  /* PODIUM */
+  .podium { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: end; margin-bottom: 2rem; }
+  .podium-card {
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    text-align: center;
+    background: var(--surface);
+    transition: transform .2s, border-color .2s;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    padding: 1.5rem 1rem;
+    min-height: 200px;
+  }
+  .podium-card:hover { transform: translateY(-3px); }
+  .podium-card.p1 {
+    border-color: rgba(240,192,64,0.3);
+    background: rgba(240,192,64,0.05);
+    order: 2;
+    min-height: 270px;
+    padding-top: 2.5rem;
+    justify-content: center;
+  }
+  .podium-card.p1::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); }
+  .podium-card.p2 { order: 1; }
+  .podium-card.p2::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--silver); }
+  .podium-card.p3 { order: 3; }
+  .podium-card.p3::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--bronze); }
+  .podium-medal { font-size: 2rem; margin-bottom: 10px; display: block; }
+  .podium-label { font-size: 10px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .08em; color: var(--text3); margin-bottom: 6px; }
+  .podium-login { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text2); margin-bottom: 10px; word-break: break-all; line-height: 1.8; }
+  .podium-count { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .podium-count.gold { color: var(--gold); }
+  .podium-count.silver { color: var(--silver); }
+  .podium-count.bronze { color: var(--bronze); }
+  .podium-pct { font-size: 12px; color: var(--text3); }
+
+  /* RANKING LIST */
+  .rank-list { display: flex; flex-direction: column; gap: 6px; }
+  .rank-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color .2s, background .2s;
+  }
+  .rank-row:hover { border-color: var(--border2); background: var(--surface2); }
+  .rank-num { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); width: 24px; text-align: right; flex-shrink: 0; }
+  .rank-login { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rank-bar-wrap { width: 180px; flex-shrink: 0; }
+  .rank-track { height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .rank-fill { height: 100%; border-radius: 3px; transition: width .6s ease; }
+  .rank-commits { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--text); width: 28px; text-align: right; flex-shrink: 0; }
+  .rank-pct { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); width: 42px; text-align: right; flex-shrink: 0; }
+
+  /* CHART */
+  .chart-wrap { position: relative; width: 100%; }
+
+  /* BAR CHART (manual) */
+  .bar-chart { display: flex; flex-direction: column; gap: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; }
+  .bar-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); width: 130px; flex-shrink: 0; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; height: 10px; background: var(--surface2); border-radius: 5px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 5px; transition: width .8s cubic-bezier(.4,0,.2,1); }
+  .bar-val { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text3); width: 28px; flex-shrink: 0; }
+
+  /* TIMES */
+  .times-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .time-card {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 14px;
+    background: var(--surface);
+    transition: transform .2s, border-color .2s;
+  }
+  .time-card:hover { transform: translateY(-2px); }
+  .time-card.active { border-color: rgba(26,186,138,0.25); }
+  .time-card.inactive { border-color: rgba(240,169,74,0.2); }
+  .time-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+  .time-repo { font-size: 11px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px; font-family: 'DM Mono', monospace; }
+  .time-status { font-size: 11px; font-weight: 500; }
+  .status-ok { color: var(--accent); }
+  .status-wait { color: var(--amber); }
+
+  /* REPO QUALITY */
+  .repo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .repo-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    transition: border-color .2s;
+  }
+  .repo-card:hover { border-color: var(--border2); }
+  .repo-name { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); margin-bottom: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .repo-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { font-size: 10px; padding: 3px 8px; border-radius: 20px; font-weight: 500; font-family: 'DM Mono', monospace; }
+  .pill-high { background: rgba(26,186,138,0.12); color: #1aba8a; border: 1px solid rgba(26,186,138,0.2); }
+  .pill-mid { background: rgba(240,169,74,0.12); color: #f0a94a; border: 1px solid rgba(240,169,74,0.2); }
+  .pill-low { background: rgba(224,90,90,0.1); color: #e05a5a; border: 1px solid rgba(224,90,90,0.15); }
+  .pill-na { background: rgba(255,255,255,0.04); color: var(--text3); border: 1px solid var(--border); }
+  .repo-meta { margin-top: 8px; display: flex; gap: 10px; }
+  .repo-meta-item { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; }
+  .repo-meta-val { color: var(--text2); }
+
+  /* COMMIT QUALITY */
+  .quality-row { display: flex; align-items: center; gap: 16px; margin-bottom: 1.5rem; }
+  .quality-big { text-align: center; }
+  .quality-big-num { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; }
+  .quality-big-label { font-size: 12px; color: var(--text3); margin-top: 4px; }
+  .quality-examples { flex: 1; }
+  .example-good { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent); padding: 5px 10px; background: rgba(26,186,138,0.07); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0; margin-bottom: 5px; }
+  .example-opp { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--amber); padding: 5px 10px; background: rgba(240,169,74,0.07); border-left: 2px solid var(--amber); border-radius: 0 6px 6px 0; margin-bottom: 5px; }
+
+  /* INACTIVE */
+  .inactive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+  .inactive-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text3);
+    transition: border-color .2s, color .2s;
+  }
+  .inactive-pill:hover { border-color: var(--border2); color: var(--text2); }
+
+  /* OPPORTUNITIES */
+  .opp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: border-color .2s;
+  }
+  .opp-card:hover { border-color: var(--border2); }
+  .opp-icon { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+  .opp-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .opp-body { font-size: 13px; color: var(--text2); line-height: 1.7; }
+  .opp-tag { display: inline-block; font-size: 10px; font-family: 'DM Mono', monospace; padding: 2px 8px; border-radius: 20px; margin-bottom: 10px; }
+  .opp-tag.urgente { background: rgba(224,90,90,0.12); color: #e05a5a; border: 1px solid rgba(224,90,90,0.2); }
+  .opp-tag.importante { background: rgba(240,169,74,0.12); color: #f0a94a; border: 1px solid rgba(240,169,74,0.2); }
+  .opp-tag.melhoria { background: rgba(74,157,240,0.12); color: #4a9df0; border: 1px solid rgba(74,157,240,0.2); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2rem;
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--text3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  section:nth-child(1) { animation-delay: .05s; }
+  section:nth-child(2) { animation-delay: .1s; }
+  section:nth-child(3) { animation-delay: .15s; }
+  section:nth-child(4) { animation-delay: .2s; }
+  section:nth-child(5) { animation-delay: .25s; }
+  section:nth-child(6) { animation-delay: .3s; }
+
+  .dot-accent { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 6px; vertical-align: middle; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+</style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <nav>
-        <a href="#overview">Visão geral</a>
-        <a href="#contributors">Contribuintes</a>
-        <a href="#repos">Repositórios</a>
-        <a href="#quality">Qualidade</a>
-        <a href="#teams">Times</a>
-        <a href="#opportunities">Oportunidades</a>
-        <div class="header-right">
-          <span>28 abr 2026</span>
-          <button class="theme-toggle">
-            ☀️ Modo claro
-          </button>
-        </div>
-      </nav>
-    </div>
-  </header>
 
-  <div class="hero">
-    <div class="container">
-      <h1>Relatório da Organização GitHub</h1>
-      <h2>IA-para-DEVs-SCTEC-T2</h2>
-      <p>Panorama de atividade, contribuições e evolução da turma. Dados coletados em 28 de abril de 2026 a partir dos repositórios ativos da organização.</p>
+<nav>
+  <div class="nav-brand">IA para DEVs <span>· T2</span></div>
+  <div class="nav-links">
+    <a href="#visao-geral">Visão geral</a>
+    <a href="#contribuintes">Contribuintes</a>
+    <a href="#repositorios">Repositórios</a>
+    <a href="#qualidade">Qualidade</a>
+    <a href="#times">Times</a>
+    <a href="#oportunidades">Oportunidades</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="nav-date">28 abr 2026</span>
+    <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">
+      <span id="themeIcon">☀️</span> <span id="themeLabel">Modo claro</span>
+    </button>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero" id="visao-geral">
+    <p class="hero-tag">Relatório da Organização GitHub</p>
+    <h1 class="hero-title">IA-para-DEVs-SCTEC-<em>T2</em></h1>
+    <p class="hero-sub">Panorama de atividade, contribuições e evolução da turma. Dados coletados em 28 de abril de 2026 a partir dos repositórios ativos da organização.</p>
+  </div>
+
+  <!-- MÉTRICAS -->
+  <div class="metrics">
+    <div class="metric">
+      <p class="metric-label">Membros</p>
+      <p class="metric-value">38</p>
+      <p class="metric-sub">alunos + professores</p>
+    </div>
+    <div class="metric accent">
+      <p class="metric-label">Alunos ativos</p>
+      <p class="metric-value">25</p>
+      <p class="metric-sub">67% fizeram commits</p>
+    </div>
+    <div class="metric">
+      <p class="metric-label">Repositórios</p>
+      <p class="metric-value">11</p>
+      <p class="metric-sub">6 Python · 1 TypeScript</p>
+    </div>
+    <div class="metric">
+      <p class="metric-label">Commits (turma)</p>
+      <p class="metric-value">102</p>
+      <p class="metric-sub">89 analisados</p>
+    </div>
+    <div class="metric">
+      <p class="metric-label">Pull requests</p>
+      <p class="metric-value">63</p>
+      <p class="metric-sub">31 merged · 21 abertos</p>
     </div>
   </div>
 
-  <main class="container">
-    <section id="overview">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h3>38</h3>
-          <p>Membros</p>
-          <small style="color: var(--text-muted);">alunos + professores</small>
-        </div>
-        <div class="stat-card">
-          <h3>25</h3>
-          <p>Alunos ativos</p>
-          <small style="color: var(--text-muted);">67% fizeram commits</small>
-        </div>
-        <div class="stat-card">
-          <h3>11</h3>
-          <p>Repositórios</p>
-          <small style="color: var(--text-muted);">6 Python · 1 TypeScript</small>
-        </div>
-        <div class="stat-card">
-          <h3>102</h3>
-          <p>Commits (turma)</p>
-          <small style="color: var(--text-muted);">89 analisados</small>
-        </div>
-        <div class="stat-card">
-          <h3>63</h3>
-          <p>Pull requests</p>
-          <small style="color: var(--text-muted);">31 merged · 21 abertos</small>
-        </div>
+  <!-- CONTRIBUINTES -->
+  <section id="contribuintes">
+    <div class="section-header">
+      <h2 class="section-title">Contribuintes</h2>
+      <div class="section-line"></div>
+      <span class="section-badge">25 ativos</span>
+    </div>
+
+    <div class="podium">
+      <div class="podium-card p2">
+        <span class="podium-medal">🥈</span>
+        <p class="podium-label">2º lugar · empatados</p>
+        <p class="podium-login">thiagocaandrade<br>AlyssonGirotto<br>jrcosta</p>
+        <p class="podium-count silver">7</p>
+        <p class="podium-pct">6.9% cada</p>
       </div>
-    </section>
-
-    <section id="contributors">
-      <div class="section-header">
-        <h2>Contribuintes</h2>
-        <span class="badge">25 ativos</span>
+      <div class="podium-card p1">
+        <span class="podium-medal">🥇</span>
+        <p class="podium-label">1º lugar · campeão</p>
+        <p class="podium-login">Jouusey</p>
+        <p class="podium-count gold">8</p>
+        <p class="podium-pct">7.8% dos commits da turma</p>
       </div>
-
-      <div class="podium">
-        <div class="podium-card second">
-          <div class="medal">🥈</div>
-          <h4>2º lugar · empatados</h4>
-          <div class="names">thiagocaandrade<br>AlyssonGirotto<br>jrcosta</div>
-          <div class="count">7</div>
-          <div class="percentage">6.9% cada</div>
-        </div>
-
-        <div class="podium-card first">
-          <div class="medal">🥇</div>
-          <h4>1º lugar · campeão</h4>
-          <div class="names">Jouusey</div>
-          <div class="count">8</div>
-          <div class="percentage">7.8% dos commits da turma</div>
-        </div>
-
-        <div class="podium-card third">
-          <div class="medal">🥉</div>
-          <h4>3º lugar · empatados</h4>
-          <div class="names">gbetsa<br>cassianobigodudo<br>DarielVerdecia93</div>
-          <div class="count">5</div>
-          <div class="percentage">4.9% cada</div>
-        </div>
+      <div class="podium-card p3">
+        <span class="podium-medal">🥉</span>
+        <p class="podium-label">3º lugar · empatados</p>
+        <p class="podium-login">gbetsa<br>cassianobigodudo<br>DarielVerdecia93</p>
+        <p class="podium-count bronze">5</p>
+        <p class="podium-pct">4.9% cada</p>
       </div>
+    </div>
 
-      <div class="engagement-grid">
-        <div class="chart-container">
-          <h3 class="chart-title">Commits por aluno</h3>
-          <div class="bar-chart">
-            <div class="bar-item">
-              <span class="bar-label">FelipeRamosOliveira</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 100%;">15</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">Jouusey</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 53%;">8</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">thiagocaandrade</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 47%;">7</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">AlyssonGirotto</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 47%;">7</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">jrcosta</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 47%;">7</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">gbetsa</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 33%;">5</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">cassianobigodudo</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 33%;">5</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">DarielVerdecia93</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 33%;">5</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">Lucasschwertz</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 27%;">4</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">micheleoliveiracod</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 27%;">4</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">dutra357</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 27%;">4</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">cae07</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 27%;">4</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">figorgarcia</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 27%;">4</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">joaopuel</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 20%;">3</div>
-              </div>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">Outros (12 membros)</span>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: 15%;">1-2 cada</div>
-              </div>
-            </div>
-          </div>
+    <div class="grid2" style="margin-bottom: 1.5rem;">
+      <div class="card">
+        <p class="card-title">Commits por aluno</p>
+        <div class="bar-chart" id="commitBars"></div>
+      </div>
+      <div class="card">
+        <p class="card-title">Engajamento da turma</p>
+        <div class="chart-wrap" style="height:200px;">
+          <canvas id="engChart" role="img" aria-label="67% dos alunos têm commits, 33% ainda não têm contribuições registradas.">67% ativos, 33% aguardando primeira contribuição.</canvas>
         </div>
-
-        <div class="engagement-card">
-          <h3 class="chart-title">Engajamento da turma</h3>
-          <p class="chart-description">67% ativos, 33% aguardando primeira contribuição.</p>
-          <div class="engagement-stat">
-            <div class="engagement-bar">
-              <div class="engagement-fill" style="width: 67%;">25 alunos com contribuições registradas</div>
-            </div>
-            <span style="font-weight: bold; color: var(--success);">67%</span>
+        <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 10px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:10px;height:10px;border-radius:2px;background:var(--accent);flex-shrink:0;"></span>
+            <span style="font-size:13px;color:var(--text2);">25 alunos com contribuições registradas</span>
+            <span style="margin-left:auto;font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);">67%</span>
           </div>
-          <div class="engagement-stat">
-            <div class="engagement-bar">
-              <div class="engagement-fill inactive" style="width: 33%;">12 alunos aguardando primeira contribuição</div>
-            </div>
-            <span style="font-weight: bold; color: var(--warning);">33%</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:10px;height:10px;border-radius:2px;background:var(--surface2);border:1px solid var(--border2);flex-shrink:0;"></span>
+            <span style="font-size:13px;color:var(--text2);">12 alunos aguardando primeira contribuição</span>
+            <span style="margin-left:auto;font-family:'DM Mono',monospace;font-size:12px;color:var(--text3);">33%</span>
           </div>
-          <div style="margin-top: 1.5rem; text-align: center;">
-            <p class="engagement-label">Média por aluno ativo</p>
-            <div class="engagement-value">4.1 commits</div>
+          <div style="margin-top:8px;padding-top:12px;border-top:1px solid var(--border);">
+            <p style="font-size:11px;color:var(--text3);margin-bottom:4px;">Média por aluno ativo</p>
+            <p style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;color:var(--text);">4.1 <span style="font-size:14px;font-weight:400;color:var(--text3);">commits</span></p>
           </div>
         </div>
       </div>
+    </div>
 
-      <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Ranking completo dos alunos</h3>
-      <div class="chart-container">
-        <div class="bar-chart">
-          <div class="bar-item">
-            <span class="bar-label">FelipeRamosOliveira</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 100%;">15</div></div>
-            <span class="bar-value">15</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">Jouusey</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 53%;">8</div></div>
-            <span class="bar-value">8</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">thiagocaandrade</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 47%;">7</div></div>
-            <span class="bar-value">7</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">AlyssonGirotto</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 47%;">7</div></div>
-            <span class="bar-value">7</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">jrcosta</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 47%;">7</div></div>
-            <span class="bar-value">7</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">gbetsa</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 33%;">5</div></div>
-            <span class="bar-value">5</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">cassianobigodudo</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 33%;">5</div></div>
-            <span class="bar-value">5</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">DarielVerdecia93</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 33%;">5</div></div>
-            <span class="bar-value">5</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">Lucasschwertz</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 27%;">4</div></div>
-            <span class="bar-value">4</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">micheleoliveiracod</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 27%;">4</div></div>
-            <span class="bar-value">4</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">dutra357</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 27%;">4</div></div>
-            <span class="bar-value">4</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">cae07</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 27%;">4</div></div>
-            <span class="bar-value">4</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">figorgarcia</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 27%;">4</div></div>
-            <span class="bar-value">4</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">joaopuel</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 20%;">3</div></div>
-            <span class="bar-value">3</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">edunotari</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 13%;">2</div></div>
-            <span class="bar-value">2</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">fabiojpegoraro</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 13%;">2</div></div>
-            <span class="bar-value">2</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">andreagonzalez</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 13%;">2</div></div>
-            <span class="bar-value">2</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">tiodanas</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 13%;">2</div></div>
-            <span class="bar-value">2</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">neimarbl</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 13%;">2</div></div>
-            <span class="bar-value">2</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">jacsontobiasbordin</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 13%;">2</div></div>
-            <span class="bar-value">2</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">gvmertens</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 7%;">1</div></div>
-            <span class="bar-value">1</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">weltonsabino</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 7%;">1</div></div>
-            <span class="bar-value">1</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">gmcasati</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 7%;">1</div></div>
-            <span class="bar-value">1</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">PauloSergioLR</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 7%;">1</div></div>
-            <span class="bar-value">1</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">gcasatifox</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 7%;">1</div></div>
-            <span class="bar-value">1</span>
-          </div>
-          <div class="bar-item">
-            <span class="bar-label">biel1993ph</span>
-            <div class="bar-track"><div class="bar-fill" style="width: 7%;">1</div></div>
-            <span class="bar-value">1</span>
-          </div>
+    <div class="card">
+      <p class="card-title">Ranking completo dos alunos</p>
+      <div class="rank-list" id="rankList"></div>
+    </div>
+  </section>
+
+  <!-- AGUARDANDO -->
+  <section>
+    <div class="section-header">
+      <h2 class="section-title">Aguardando primeira contribuição</h2>
+      <div class="section-line"></div>
+      <span class="section-badge">12 alunos</span>
+    </div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.7;">Estes alunos ainda não têm commits registrados nos repositórios da organização — uma ótima oportunidade para um primeiro push!</p>
+    <div class="inactive-grid" id="inactiveGrid"></div>
+  </section>
+
+  <!-- REPOSITÓRIOS -->
+  <section id="repositorios">
+    <div class="section-header">
+      <h2 class="section-title">Repositórios</h2>
+      <div class="section-line"></div>
+      <span class="section-badge">11 repos</span>
+    </div>
+
+    <div class="grid2" style="margin-bottom:1.5rem;">
+      <div class="card">
+        <p class="card-title">Commits por repositório</p>
+        <div class="chart-wrap" style="height:220px;">
+          <canvas id="repoCommitChart" role="img" aria-label="hello-github lidera com 71 commits, seguido de hello-api com 18.">Commits por repositório.</canvas>
         </div>
       </div>
-    </section>
-
-    <section>
-      <div class="section-header">
-        <h2>Aguardando primeira contribuição</h2>
-        <span class="badge">12 alunos</span>
-      </div>
-      <div class="waiting-list">
-        <p>Estes alunos ainda não têm commits registrados nos repositórios da organização — uma ótima oportunidade para um primeiro push!</p>
-        <div class="user-grid">
-          <div class="user-tag">andrevilmo</div>
-          <div class="user-tag">Jardheson</div>
-          <div class="user-tag">lucasbecker</div>
-          <div class="user-tag">luizfeam2020</div>
-          <div class="user-tag">marcelosoaresblu</div>
-          <div class="user-tag">paolojcm</div>
-          <div class="user-tag">prbretas</div>
-          <div class="user-tag">RafaelMontalvao</div>
-          <div class="user-tag">Raphanrn</div>
-          <div class="user-tag">samuelmarquesgit</div>
-          <div class="user-tag">simonerosicar</div>
-          <div class="user-tag">vborges1</div>
-          <div class="user-tag">wiltonssp</div>
+      <div class="card">
+        <p class="card-title">Pull requests por repositório</p>
+        <div class="chart-wrap" style="height:220px;">
+          <canvas id="repoPrChart" role="img" aria-label="hello-github tem 52 PRs, hello-api tem 8.">PRs por repositório.</canvas>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section id="repos">
-      <div class="section-header">
-        <h2>Repositórios</h2>
-        <span class="badge">11 repos</span>
+    <div class="repo-grid" id="repoGrid"></div>
+  </section>
+
+  <!-- QUALIDADE -->
+  <section id="qualidade">
+    <div class="section-header">
+      <h2 class="section-title">Qualidade de commits e PRs</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="grid2" style="margin-bottom:1.5rem;">
+      <div class="card">
+        <p class="card-title">Adoção de conventional commits</p>
+        <div style="display:flex;align-items:center;gap:24px;margin-bottom:1.25rem;">
+          <div style="text-align:center;flex-shrink:0;">
+            <p style="font-family:'Syne',sans-serif;font-size:3rem;font-weight:700;color:var(--accent);line-height:1;">31%</p>
+            <p style="font-size:11px;color:var(--text3);margin-top:4px;">dos commits</p>
+          </div>
+          <div class="chart-wrap" style="height:120px;flex:1;">
+            <canvas id="ccChart" role="img" aria-label="31% dos commits seguem conventional commits, 69% ainda não.">31% conventional, 69% em evolução.</canvas>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;">
+          <div style="background:rgba(26,186,138,0.08);border:1px solid rgba(26,186,138,0.15);border-radius:8px;padding:8px 12px;flex:1;">
+            <p style="font-size:11px;color:var(--text3);margin-bottom:2px;">Com padrão</p>
+            <p style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:var(--accent);">28</p>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;flex:1;">
+            <p style="font-size:11px;color:var(--text3);margin-bottom:2px;">Em evolução</p>
+            <p style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:var(--text2);">61</p>
+          </div>
+        </div>
+        <p style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Exemplos de ótimas mensagens ✓</p>
+        <div class="example-good">feat: adiciona arquivo hello_paula.py</div>
+        <div class="example-good">docs: jacson-tobias-bordin-manual</div>
+        <div class="example-good">fix: remove arquivos sensíveis (.env)</div>
+        <div class="example-good">feat: implementa API REST com FastAPI</div>
       </div>
 
-      <div class="engagement-grid">
-        <div class="chart-container">
-          <h3 class="chart-title">Commits por repositório</h3>
-          <p class="chart-description">Commits por repositório.</p>
-          <div class="bar-chart">
-            <div class="bar-item">
-              <span class="bar-label">hello-github</span>
-              <div class="bar-track"><div class="bar-fill" style="width: 100%;">71</div></div>
-              <span class="bar-value">71</span>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">hello-api</span>
-              <div class="bar-track"><div class="bar-fill" style="width: 25%;">18</div></div>
-              <span class="bar-value">18</span>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">atividade-grupo-4-23-04</span>
-              <div class="bar-track"><div class="bar-fill" style="width: 10%;">7</div></div>
-              <span class="bar-value">7</span>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">Grupo8-Atividade-23-04-2026</span>
-              <div class="bar-track"><div class="bar-fill" style="width: 6%;">4</div></div>
-              <span class="bar-value">4</span>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">Time-01-Atividade-23-04-2026</span>
-              <div class="bar-track"><div class="bar-fill" style="width: 1%;">1</div></div>
-              <span class="bar-value">1</span>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">Grupo2-Atividade-23-04-2026</span>
-              <div class="bar-track"><div class="bar-fill" style="width: 1%;">1</div></div>
-              <span class="bar-value">1</span>
-            </div>
+      <div class="card">
+        <p class="card-title">Pull requests — visão geral</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1.25rem;">
+          <div style="text-align:center;background:var(--surface2);border-radius:10px;padding:12px;">
+            <p style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;color:var(--text);">63</p>
+            <p style="font-size:11px;color:var(--text3);margin-top:2px;">total</p>
+          </div>
+          <div style="text-align:center;background:rgba(26,186,138,0.08);border:1px solid rgba(26,186,138,0.15);border-radius:10px;padding:12px;">
+            <p style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;color:var(--accent);">59.6%</p>
+            <p style="font-size:11px;color:var(--text3);margin-top:2px;">taxa de merge</p>
+          </div>
+          <div style="text-align:center;background:var(--surface2);border-radius:10px;padding:12px;">
+            <p style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;color:var(--amber);">46%</p>
+            <p style="font-size:11px;color:var(--text3);margin-top:2px;">títulos padronizados</p>
           </div>
         </div>
+        <div class="chart-wrap" style="height:130px;">
+          <canvas id="prChart" role="img" aria-label="31 PRs mergeados, 21 abertos, 11 pendentes.">Status dos pull requests.</canvas>
+        </div>
+        <p style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin:1rem 0 8px;">Exemplos de títulos bem escritos ✓</p>
+        <div class="example-good">feat: add hello-michele-kiro.py</div>
+        <div class="example-good">[docs] - (readme): adiciona documentação completa</div>
+        <p style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin:1rem 0 8px;">Oportunidades de melhoria nos títulos</p>
+        <div class="example-opp">msg · arquivo texto · hello gabriel</div>
+      </div>
+    </div>
 
-        <div class="chart-container">
-          <h3 class="chart-title">Pull requests por repositório</h3>
-          <p class="chart-description">PRs por repositório.</p>
-          <div class="bar-chart">
-            <div class="bar-item">
-              <span class="bar-label">hello-github</span>
-              <div class="bar-track"><div class="bar-fill" style="width: 100%;">52</div></div>
-              <span class="bar-value">52</span>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">hello-api</span>
-              <div class="bar-track"><div class="bar-fill" style="width: 15%;">8</div></div>
-              <span class="bar-value">8</span>
-            </div>
-            <div class="bar-item">
-              <span class="bar-label">outros</span>
-              <div class="bar-track"><div class="bar-fill" style="width: 6%;">3</div></div>
-              <span class="bar-value">3</span>
-            </div>
-          </div>
+    <div class="card">
+      <p class="card-title">Tipos de conventional commits identificados</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div style="background:rgba(26,186,138,0.08);border:1px solid rgba(26,186,138,0.15);border-radius:8px;padding:8px 14px;text-align:center;">
+          <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);">feat</p>
+          <p style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:var(--text);">18</p>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;text-align:center;">
+          <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);">docs</p>
+          <p style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:var(--text);">4</p>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;text-align:center;">
+          <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);">chore</p>
+          <p style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:var(--text);">3</p>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;text-align:center;">
+          <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);">fix</p>
+          <p style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:var(--text);">2</p>
+        </div>
+        <div style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;">
+          <p style="font-size:12px;color:var(--text2);line-height:1.7;">A adoção de <code style="font-family:'DM Mono',monospace;color:var(--accent);">feat</code> como tipo mais usado é um bom sinal — a turma já entende a estrutura. O próximo passo é expandir para <code style="font-family:'DM Mono',monospace;color:var(--blue);">refactor</code>, <code style="font-family:'DM Mono',monospace;color:var(--purple);">test</code> e <code style="font-family:'DM Mono',monospace;color:var(--text2);">ci</code>.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="teams-grid">
-        <div class="team-card">
-          <h3>hello-github</h3>
-          <p>71 commits · 52 PRs · 19 issues abertas</p>
-        </div>
-        <div class="team-card">
-          <h3>hello-api</h3>
-          <p>18 commits · 8 PRs · 1 issue aberta</p>
-        </div>
-        <div class="team-card">
-          <h3>atividade-grupo-4-23-04</h3>
-          <p>7 commits · Python · TIME 4</p>
-        </div>
-        <div class="team-card">
-          <h3>grupo07-semana03-techstorebot</h3>
-          <p>API REST · Clean Architecture · TIME 7</p>
-        </div>
-        <div class="team-card">
-          <h3>Grupo8-Atividade-23-04-2026</h3>
-          <p>4 commits · TypeScript · TIME 8</p>
-        </div>
-        <div class="team-card">
-          <h3>org-analytics-dashboard</h3>
-          <p>Dashboard de analytics da organização</p>
-        </div>
+  <!-- TIMES -->
+  <section id="times">
+    <div class="section-header">
+      <h2 class="section-title">Times</h2>
+      <div class="section-line"></div>
+      <span class="section-badge">8 ativos · 9 total</span>
+    </div>
+    <div class="times-grid" id="timesGrid"></div>
+  </section>
+
+  <!-- OPORTUNIDADES -->
+  <section id="oportunidades">
+    <div class="section-header">
+      <h2 class="section-title">Oportunidades de evolução</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="opp-grid">
+      <div class="opp-card">
+        <span class="opp-tag urgente">urgente</span>
+        <span class="opp-icon">🔐</span>
+        <p class="opp-title">Ativar branch protection</p>
+        <p class="opp-body">Configurar branch protection rules na <code style="font-family:'DM Mono',monospace;color:var(--accent);">main</code> exigindo ao menos 1 aprovação antes do merge — isso transforma o processo de revisão em aprendizado ativo de code review.</p>
       </div>
-    </section>
-
-    <section id="quality">
-      <div class="section-header">
-        <h2>Qualidade de commits e PRs</h2>
+      <div class="opp-card">
+        <span class="opp-tag urgente">urgente</span>
+        <span class="opp-icon">📋</span>
+        <p class="opp-title">Template de PR no .github</p>
+        <p class="opp-body">Criar um template com checklist guiado (tipo de mudança, como testar, commit convencional) ajuda os alunos a estruturar melhor suas contribuições sem precisar decorar a convenção.</p>
       </div>
-
-      <div class="quality-grid">
-        <div class="quality-card">
-          <h3 class="chart-title">Adoção de conventional commits</h3>
-          <div class="quality-stats">
-            <div class="quality-stat">
-              <div class="quality-stat-value">31%</div>
-              <div class="quality-stat-label">dos commits</div>
-            </div>
-          </div>
-          <p class="chart-description">31% conventional, 69% em evolução.</p>
-          <div class="quality-bars">
-            <div class="quality-bar-item">
-              <span class="quality-bar-label">Com padrão</span>
-              <div class="quality-bar-track">
-                <div class="quality-bar-fill success" style="width: 31%;">28</div>
-              </div>
-            </div>
-            <div class="quality-bar-item">
-              <span class="quality-bar-label">Em evolução</span>
-              <div class="quality-bar-track">
-                <div class="quality-bar-fill warning" style="width: 69%;">61</div>
-              </div>
-            </div>
-          </div>
-          <div class="examples">
-            <h4>Exemplos de ótimas mensagens ✓</h4>
-            <div class="example-item">feat: adiciona arquivo hello_paula.py</div>
-            <div class="example-item">docs: jacson-tobias-bordin-manual</div>
-            <div class="example-item">fix: remove arquivos sensíveis (.env)</div>
-            <div class="example-item">feat: implementa API REST com FastAPI</div>
-          </div>
-        </div>
-
-        <div class="quality-card">
-          <h3 class="chart-title">Pull requests — visão geral</h3>
-          <div class="quality-stats">
-            <div class="quality-stat">
-              <div class="quality-stat-value">63</div>
-              <div class="quality-stat-label">total</div>
-            </div>
-            <div class="quality-stat">
-              <div class="quality-stat-value">59.6%</div>
-              <div class="quality-stat-label">taxa de merge</div>
-            </div>
-            <div class="quality-stat">
-              <div class="quality-stat-value">46%</div>
-              <div class="quality-stat-label">títulos padronizados</div>
-            </div>
-          </div>
-          <p class="chart-description">Status dos pull requests.</p>
-          <div class="examples">
-            <h4>Exemplos de títulos bem escritos ✓</h4>
-            <div class="example-item">feat: add hello-michele-kiro.py</div>
-            <div class="example-item">[docs] - (readme): adiciona documentação completa</div>
-            <h4 style="margin-top: 1rem;">Oportunidades de melhoria nos títulos</h4>
-            <div class="example-item bad">msg · arquivo texto · hello gabriel</div>
-          </div>
-        </div>
+      <div class="opp-card">
+        <span class="opp-tag importante">importante</span>
+        <span class="opp-icon">✍️</span>
+        <p class="opp-title">Aula prática de conventional commits</p>
+        <p class="opp-body">Com 31% de adoção, a turma está no caminho certo. Uma aula prática com commitlint configurado no repositório pode consolidar esse hábito de forma definitiva para todos os 38 membros.</p>
       </div>
-
-      <div class="chart-container">
-        <h3 class="chart-title">Tipos de conventional commits identificados</h3>
-        <div class="commit-types">
-          <div class="commit-type-card">
-            <div class="commit-type-name">feat</div>
-            <div class="commit-type-count">18</div>
-          </div>
-          <div class="commit-type-card">
-            <div class="commit-type-name">docs</div>
-            <div class="commit-type-count">4</div>
-          </div>
-          <div class="commit-type-card">
-            <div class="commit-type-name">chore</div>
-            <div class="commit-type-count">3</div>
-          </div>
-          <div class="commit-type-card">
-            <div class="commit-type-name">fix</div>
-            <div class="commit-type-count">2</div>
-          </div>
-        </div>
-        <div class="commit-types-note">
-          A adoção de <strong>feat</strong> como tipo mais usado é um bom sinal — a turma já entende a estrutura. O próximo passo é expandir para <strong>refactor</strong>, <strong>test</strong> e <strong>ci</strong>.
-        </div>
+      <div class="opp-card">
+        <span class="opp-tag importante">importante</span>
+        <span class="opp-icon">📖</span>
+        <p class="opp-title">README em todos os repositórios</p>
+        <p class="opp-body">Vários repositórios ainda não têm descrição ou README. Um template simples (propósito, como rodar, como contribuir) pode ser adotado como requisito mínimo para as próximas atividades.</p>
       </div>
-    </section>
-
-    <section id="teams">
-      <div class="section-header">
-        <h2>Times</h2>
-        <span class="badge">8 ativos · 9 total</span>
+      <div class="opp-card">
+        <span class="opp-tag melhoria">melhoria</span>
+        <span class="opp-icon">🏆</span>
+        <p class="opp-title">Gamificar contribuições</p>
+        <p class="opp-body">Com 12 alunos ainda sem commits, um sistema leve de pontos ou badges (primeiro commit, primeiro PR revisado, primeiro conventional commit) pode ser um estímulo divertido para a participação.</p>
       </div>
-      <div class="teams-grid">
-        <div class="team-card">
-          <h3>TIME DOS PROFESSORES</h3>
-          <p>Administrativo</p>
-        </div>
-        <div class="team-card">
-          <h3>TIME 1</h3>
-          <p>Time-01-Atividade-23-04-2026</p>
-        </div>
-        <div class="team-card">
-          <h3>TIME 2</h3>
-          <p>Grupo2-Atividade-23-04-2026</p>
-        </div>
-        <div class="team-card">
-          <h3>TIME 3</h3>
-          <p>Aguardando repositório</p>
-        </div>
-        <div class="team-card">
-          <h3>TIME 4</h3>
-          <p>atividade-grupo-4-23-04</p>
-        </div>
-        <div class="team-card">
-          <h3>TIME 5</h3>
-          <p>Aguardando repositório</p>
-        </div>
-        <div class="team-card">
-          <h3>TIME 6</h3>
-          <p>Aguardando repositório</p>
-        </div>
-        <div class="team-card">
-          <h3>TIME 7</h3>
-          <p>grupo07-semana03-techstorebot</p>
-        </div>
-        <div class="team-card">
-          <h3>TIME 8</h3>
-          <p>Grupo8-Atividade-23-04-2026</p>
-        </div>
+      <div class="opp-card">
+        <span class="opp-tag melhoria">melhoria</span>
+        <span class="opp-icon">⚙️</span>
+        <p class="opp-title">CI básico nas atividades</p>
+        <p class="opp-body">Adicionar um workflow simples (lint + testes) no GitHub Actions introduz os alunos a CI/CD de forma prática. O <code style="font-family:'DM Mono',monospace;color:var(--accent);">grupo07</code> já usa testes — pode ser o modelo para os demais times.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="opportunities">
-      <div class="section-header">
-        <h2>Oportunidades de evolução</h2>
-      </div>
-      <div class="opportunities">
-        <div class="opportunity-card urgent">
-          <div class="opportunity-header">
-            <span class="opportunity-priority">urgente</span>
-            <span class="opportunity-icon">🔐</span>
-            <h3 class="opportunity-title">Ativar branch protection</h3>
-          </div>
-          <p class="opportunity-description">Configurar branch protection rules na main exigindo ao menos 1 aprovação antes do merge — isso transforma o processo de revisão em aprendizado ativo de code review.</p>
-        </div>
+</div>
 
-        <div class="opportunity-card urgent">
-          <div class="opportunity-header">
-            <span class="opportunity-priority">urgente</span>
-            <span class="opportunity-icon">📋</span>
-            <h3 class="opportunity-title">Template de PR no .github</h3>
-          </div>
-          <p class="opportunity-description">Criar um template com checklist guiado (tipo de mudança, como testar, commit convencional) ajuda os alunos a estruturar melhor suas contribuições sem precisar decorar a convenção.</p>
-        </div>
+<footer>
+  <span>IA-para-DEVs-SCTEC-T2 · Relatório gerado por Kiro AI</span>
+  <span>28 abr 2026</span>
+</footer>
 
-        <div class="opportunity-card important">
-          <div class="opportunity-header">
-            <span class="opportunity-priority">importante</span>
-            <span class="opportunity-icon">✍️</span>
-            <h3 class="opportunity-title">Aula prática de conventional commits</h3>
-          </div>
-          <p class="opportunity-description">Com 31% de adoção, a turma está no caminho certo. Uma aula prática com commitlint configurado no repositório pode consolidar esse hábito de forma definitiva para todos os 38 membros.</p>
-        </div>
+<script>
+// DATA
+const alunosCommits = {"Jouusey":8,"thiagocaandrade":7,"AlyssonGirotto":7,"jrcosta":7,"gbetsa":5,"cassianobigodudo":5,"DarielVerdecia93":5,"Lucasschwertz":4,"micheleoliveiracod":4,"dutra357":4,"cae07":4,"figorgarcia":4,"joaopuel":3,"edunotari":2,"fabiojpegoraro":2,"andreagonzalez":2,"tiodanas":2,"neimarbl":2,"jacsontobiasbordin":2,"gvmertens":1,"weltonsabino":1,"gmcasati":1,"PauloSergioLR":1,"gcasatifox":1,"biel1993ph":1};
+const allAlunos = ["AlyssonGirotto","andreagonzalez","andrevilmo","biel1993ph","cae07","cassianobigodudo","DarielVerdecia93","dutra357","edunotari","fabiojpegoraro","figorgarcia","gbetsa","gmcasati","gvmertens","jacsontobiasbordin","Jardheson","joaopuel","Jouusey","jrcosta","lucasbecker","Lucasschwertz","luizfeam2020","marcelosoaresblu","micheleoliveiracod","neimarbl","paolojcm","PauloSergioLR","prbretas","RafaelMontalvao","Raphanrn","samuelmarquesgit","simonerosicar","thiagocaandrade","tiodanas","vborges1","weltonsabino","wiltonssp"];
+const ranked = Object.entries(alunosCommits).sort((a,b)=>b[1]-a[1]);
+const total = 102;
 
-        <div class="opportunity-card important">
-          <div class="opportunity-header">
-            <span class="opportunity-priority">importante</span>
-            <span class="opportunity-icon">📖</span>
-            <h3 class="opportunity-title">README em todos os repositórios</h3>
-          </div>
-          <p class="opportunity-description">Vários repositórios ainda não têm descrição ou README. Um template simples (propósito, como rodar, como contribuir) pode ser adotado como requisito mínimo para as próximas atividades.</p>
-        </div>
+// BAR CHART manual
+const commitBars = document.getElementById('commitBars');
+const palette = ['#f0c040','#b0bcd0','#b0bcd0','#b0bcd0','#c8915a','#c8915a','#c8915a','#1aba8a','#1aba8a','#1aba8a','#1aba8a','#1aba8a','#555e78','#555e78','#555e78','#555e78','#555e78','#555e78','#555e78','#555e78','#555e78','#555e78','#555e78','#555e78','#555e78'];
+ranked.forEach(([login, n], i) => {
+  const w = Math.round((n/8)*100);
+  commitBars.innerHTML += `<div class="bar-row"><span class="bar-label" title="${login}">${login}</span><div class="bar-track"><div class="bar-fill" style="width:${w}%;background:${palette[i]||'#555e78'}"></div></div><span class="bar-val">${n}</span></div>`;
+});
 
-        <div class="opportunity-card improvement">
-          <div class="opportunity-header">
-            <span class="opportunity-priority">melhoria</span>
-            <span class="opportunity-icon">🏆</span>
-            <h3 class="opportunity-title">Gamificar contribuições</h3>
-          </div>
-          <p class="opportunity-description">Com 12 alunos ainda sem commits, um sistema leve de pontos ou badges (primeiro commit, primeiro PR revisado, primeiro conventional commit) pode ser um estímulo divertido para a participação.</p>
-        </div>
+// RANK LIST
+const rankList = document.getElementById('rankList');
+ranked.forEach(([login, n], i) => {
+  const pct = ((n/total)*100).toFixed(1);
+  const w = Math.round((n/8)*100);
+  rankList.innerHTML += `<div class="rank-row"><span class="rank-num">${i+1}</span><span class="rank-login">${login}</span><div class="rank-bar-wrap"><div class="rank-track"><div class="rank-fill" style="width:${w}%;background:${palette[i]||'#555e78'}"></div></div></div><span class="rank-commits">${n}</span><span class="rank-pct">${pct}%</span></div>`;
+});
 
-        <div class="opportunity-card improvement">
-          <div class="opportunity-header">
-            <span class="opportunity-priority">melhoria</span>
-            <span class="opportunity-icon">⚙️</span>
-            <h3 class="opportunity-title">CI básico nas atividades</h3>
-          </div>
-          <p class="opportunity-description">Adicionar um workflow simples (lint + testes) no GitHub Actions introduz os alunos a CI/CD de forma prática. O grupo07 já usa testes — pode ser o modelo para os demais times.</p>
-        </div>
-      </div>
-    </section>
-  </main>
+// INACTIVE
+const withCommits = new Set(Object.keys(alunosCommits));
+const inactive = allAlunos.filter(m => !withCommits.has(m));
+const ig = document.getElementById('inactiveGrid');
+inactive.forEach(m => { ig.innerHTML += `<div class="inactive-pill">${m}</div>`; });
 
-  <footer>
-    <p>IA-para-DEVs-SCTEC-T2 · Relatório gerado por Kiro AI</p>
-    <p>28 abr 2026</p>
-  </footer>
+// REPO GRID
+const repos = [
+  {name:'hello-github', codigo:'Alta', docs:'Média', seg:'Média', commits:71, prs:52},
+  {name:'hello-api', codigo:'Média', docs:'Média', seg:'Média', commits:18, prs:8},
+  {name:'grupo07-semana03-techstorebot', codigo:'Alta', docs:'Alta', seg:'Alta', commits:0, prs:0},
+  {name:'atividade-grupo-4-23-04', codigo:'Média', docs:'Média', seg:'Média', commits:7, prs:0},
+  {name:'Time-01-Atividade-23-04-2026', codigo:'Em desenvolvimento', docs:'Em desenvolvimento', seg:'Média', commits:1, prs:0},
+  {name:'Grupo2-Atividade-23-04-2026', codigo:'Em desenvolvimento', docs:'Em desenvolvimento', seg:'Média', commits:1, prs:0},
+  {name:'Grupo8-Atividade-23-04-2026', codigo:'Média', docs:'Média', seg:'Média', commits:4, prs:0},
+  {name:'.github', codigo:'N/A', docs:'Em construção', seg:'N/A', commits:0, prs:0},
+  {name:'atividade_23_04', codigo:'N/A', docs:'Em construção', seg:'N/A', commits:0, prs:0},
+];
+function pillClass(v) {
+  if(v==='Alta') return 'pill-high';
+  if(v==='Média') return 'pill-mid';
+  if(v==='Em desenvolvimento'||v==='Em construção') return 'pill-low';
+  return 'pill-na';
+}
+const rg = document.getElementById('repoGrid');
+repos.forEach(r => {
+  rg.innerHTML += `<div class="repo-card">
+    <p class="repo-name" title="${r.name}">${r.name}</p>
+    <div class="repo-pills">
+      <span class="pill ${pillClass(r.codigo)}">${r.codigo === 'Em desenvolvimento' ? 'em dev' : r.codigo === 'Em construção' ? 'em construção' : r.codigo}</span>
+      <span class="pill ${pillClass(r.docs)}">${r.docs === 'Em desenvolvimento' ? 'docs em dev' : r.docs === 'Em construção' ? 'docs em construção' : 'docs ' + r.docs.toLowerCase()}</span>
+    </div>
+    <div class="repo-meta">
+      <span class="repo-meta-item">commits <span class="repo-meta-val">${r.commits}</span></span>
+      <span class="repo-meta-item">PRs <span class="repo-meta-val">${r.prs}</span></span>
+    </div>
+  </div>`;
+});
+
+// TIMES
+const times = [
+  {name:'Time 1', repo:'Time-01-Atividade', active:true},
+  {name:'Time 2', repo:'Grupo2-Atividade', active:true},
+  {name:'Time 3', repo:'—', active:false},
+  {name:'Time 4', repo:'atividade-grupo-4', active:true},
+  {name:'Time 5', repo:'—', active:false},
+  {name:'Time 6', repo:'—', active:false},
+  {name:'Time 7', repo:'grupo07-techstorebot', active:true},
+  {name:'Time 8', repo:'Grupo8-Atividade', active:true},
+];
+const tg = document.getElementById('timesGrid');
+times.forEach(t => {
+  tg.innerHTML += `<div class="time-card ${t.active ? 'active' : 'inactive'}">
+    <p class="time-name">${t.name}</p>
+    <p class="time-repo">${t.repo}</p>
+    <p class="time-status ${t.active ? 'status-ok' : 'status-wait'}">${t.active ? '● com repositório' : '○ aguardando entrega'}</p>
+  </div>`;
+});
+
+// CHARTS (Chart.js)
+const isDark = () => document.documentElement.getAttribute('data-theme') !== 'light';
+const gridColor = () => isDark() ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)';
+const tickColor = () => isDark() ? '#8b92a8' : '#4a5068';
+const emptyColor = () => isDark() ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.07)';
+
+function makeCharts() {
+  Chart.defaults.color = tickColor();
+  Chart.defaults.borderColor = gridColor();
+
+  new Chart(document.getElementById('engChart'), {
+    type:'doughnut',
+    data:{labels:['Ativos','Aguardando'],datasets:[{data:[25,12],backgroundColor:['#1aba8a', emptyColor()],borderWidth:0,hoverOffset:4}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'72%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw}`}}}}
+  });
+
+  new Chart(document.getElementById('repoCommitChart'), {
+    type:'bar',
+    data:{
+      labels:['hello-github','hello-api','grupo-4-23-04','Grupo8','Time-01','Grupo2'],
+      datasets:[{data:[71,18,7,4,1,1],backgroundColor:['#1aba8a','#4a9df0','#f0a94a','#9b87f5','#888','#888'],borderWidth:0,borderRadius:4,barPercentage:0.6}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{maxRotation:30,font:{size:11}}},y:{grid:{color:gridColor()},ticks:{font:{size:11}}}}}
+  });
+
+  new Chart(document.getElementById('repoPrChart'), {
+    type:'bar',
+    data:{
+      labels:['hello-github','hello-api','outros'],
+      datasets:[{data:[52,8,3],backgroundColor:['#1aba8a','#4a9df0','#888'],borderWidth:0,borderRadius:4,barPercentage:0.5}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{grid:{color:gridColor()},ticks:{font:{size:11}}}}}
+  });
+
+  new Chart(document.getElementById('ccChart'), {
+    type:'doughnut',
+    data:{labels:['Conventional','Em evolução'],datasets:[{data:[28,61],backgroundColor:['#1aba8a', emptyColor()],borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'75%',plugins:{legend:{display:false}}}
+  });
+
+  new Chart(document.getElementById('prChart'), {
+    type:'bar',
+    data:{
+      labels:['Merged','Abertos','Pendentes'],
+      datasets:[{data:[31,21,11],backgroundColor:['#1aba8a','#f0a94a','#888'],borderWidth:0,borderRadius:4,barPercentage:0.5}]
+    },
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:gridColor()},ticks:{font:{size:11}}},y:{grid:{display:false},ticks:{font:{size:11}}}}}
+  });
+}
+makeCharts();
+
+// THEME TOGGLE
+function toggleTheme() {
+  const html = document.documentElement;
+  const isLight = html.getAttribute('data-theme') === 'light';
+  html.setAttribute('data-theme', isLight ? 'dark' : 'light');
+  document.getElementById('themeIcon').textContent = isLight ? '☀️' : '🌙';
+  document.getElementById('themeLabel').textContent = isLight ? 'Modo claro' : 'Modo escuro';
+  // Recriar charts com novas cores
+  Chart.helpers.each(Chart.instances, c => c.destroy());
+  makeCharts();
+}
+
+</script>
 </body>
 </html>
